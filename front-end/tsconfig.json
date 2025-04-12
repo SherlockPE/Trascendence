@@ -1,0 +1,10 @@
+{
+	"compilerOptions": {
+	  "rootDir": "./src",
+	  "outDir": "./dist",
+	  "types": ["node", "@fastify/websocket"],
+	  "moduleResolution": "node",
+	  "esModuleInterop": true
+	}
+  }
+  
