@@ -1,0 +1,59 @@
+
+services:
+  user-service:
+    build:
+      context: ./back-end/user-service/
+      dockerfile: Dockerfile
+    container_name: user-service
+    ports:
+      - "3010:3010"
+    networks:
+      - transcendence-net
+
+  chat-service:
+    build:
+      context: ./back-end/chat-service/
+      dockerfile: Dockerfile
+    container_name: chat-service
+    ports:
+      - "3000:3000"
+    networks:
+      - transcendence-net
+
+  front-end:
+    build:
+      context: ./front-end/
+      dockerfile: Dockerfile
+    container_name: front-service
+    ports:
+      - "3030:3030"
+    networks:
+      - transcendence-net
+
+
+volumes:
+  user-services:
+    driver: local
+    driver_opts:
+      type: none
+      device: ./user-services
+      o: bind
+  chat-service:
+    driver: local
+    driver_opts:
+      type: none
+      device: ./chat-service
+      o: bind
+  front-end:
+    driver: local
+    driver_opts:
+      type: none
+      device: ./front-end
+      o: bind
+
+
+networks:
+  transcendence-net:
+    name: transcendence-net
+    driver: bridge
+
