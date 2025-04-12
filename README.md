@@ -1,40 +1,35 @@
 # Trascendence
 
-
-## Setup
-
 ## Microservice
-Al no tener configurado contenedores de dockers para ejecutar el chat con su front es necesario hacer uso de terminales separadas.
+Ya estan configurados los contenedores de docker 
 
-### Abrir terminal 1
+### Microservices Use Case Diagram
+![alt text](image.png)
 
+### Comando para ejecutar
+```bash
+docker compose up -d
 ```
-cd back-end/chat-service
-npm install
-npm run dev
+### Swagger
+Chat Service
+```http
+http://localhost:3000/docs
 ```
-
-### Abrir terminal 2
-
-```c
-cd back-end/user-service
-npm install
-npm run dev
-
+User Service
+```htpp
+http://localhost:3010/docs
 ```
-
-### Abrir terminal 3
-
-```
-
-cd fron-end/
-npm install
-npm run dev
-
+Auth Service
+```http
+http://localhost:3020/docs
 ```
 
 
+---
 
+## Chat useCase
+
+![alt text](image-1.png)
 ## Licencia
 
 
