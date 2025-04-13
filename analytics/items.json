@@ -1,0 +1,155 @@
+[
+  {
+    "title": "Use advanced 3D techniques",
+    "assignees": 2,
+    "child": {}
+  },
+  {
+    "title": "Replace basic Pong with server-side Pong and implement an API",
+    "assignees": 4,
+    "child": {}
+  },
+  {
+    "title": "Standard user management, authentication, users across tournaments",
+    "assignees": 2,
+    "child": {}
+  },
+  {
+    "title": "Enabling Pong gameplay via CLI against web users with API integration.",
+    "assignees": 0,
+    "child": {}
+  },
+  {
+    "title": "Implementing a remote authentication.",
+    "assignees": 3,
+    "child": {}
+  },
+  {
+    "title": "Support on all devices.",
+    "assignees": 1,
+    "child": {}
+  },
+  {
+    "title": "Expanding browser compatibility",
+    "assignees": 0,
+    "child": {}
+  },
+  {
+    "title": "Supports multiple languages.",
+    "assignees": 0,
+    "child": {}
+  },
+  {
+    "title": "Add accessibility features for visually impaired users",
+    "assignees": 0,
+    "child": {}
+  },
+  {
+    "title": "Server-Side Rendering (SSR) integration.",
+    "assignees": 0,
+    "child": {}
+  },
+  {
+    "title": "Infrastructure setup for log management",
+    "assignees": 2,
+    "child": {}
+  },
+  {
+    "title": "Monitoring system.",
+    "assignees": 4,
+    "child": {}
+  },
+  {
+    "title": "Designing the backend as microservices.",
+    "assignees": 3,
+    "child": {}
+  },
+  {
+    "title": "Implement WAF/ModSecurity with a hardened configuration and HashiCorp Vault for secrets management.",
+    "assignees": 3,
+    "child": {}
+  },
+  {
+    "title": "GDPR compliance options with user anonymization, local data management, and Account Deletion.",
+    "assignees": 0,
+    "child": {}
+  },
+  {
+    "title": "Implement Two-Factor Authentication (2FA) and JWT.",
+    "assignees": 2,
+    "child": {
+      "title": "Create Auth service",
+      "assignees": 1,
+      "child": {}
+    }
+  },
+  {
+    "title": "User and game stats dashboards",
+    "assignees": 2,
+    "child": {}
+  },
+  {
+    "title": "Remote players",
+    "assignees": 2,
+    "child": {}
+  },
+  {
+    "title": "Multiplayer (more than 2 players in the same game).",
+    "assignees": 1,
+    "child": {}
+  },
+  {
+    "title": "Add another game with user history and matchmaking.",
+    "assignees": 2,
+    "child": {}
+  },
+  {
+    "title": "Game customization options.",
+    "assignees": 2,
+    "child": {}
+  },
+  {
+    "title": "Live chat.",
+    "assignees": 2,
+    "child": {
+      "title": "Integrate with authentication service",
+      "assignees": 0,
+      "child": {}
+    }
+  },
+  {
+    "title": "Use a database for the backend.",
+    "assignees": 5,
+    "child": {}
+  },
+  {
+    "title": "Use a framework to build the backend.",
+    "assignees": 3,
+    "child": {}
+  },
+  {
+    "title": " Store the score of a tournament in the Blockchain.",
+    "assignees": 1,
+    "child": {}
+  },
+  {
+    "title": "Use a framework or a toolkit to build the frontend.",
+    "assignees": 2,
+    "child": {}
+  },
+  {
+    "title": "Introduce an AI opponent.",
+    "assignees": 2,
+    "child": {}
+  },
+  {
+    "title": "Responsable: Adrian",
+    "assignees": 1,
+    "child": {}
+  },
+  {
+    "title": "Responsable Fabricio y Alex",
+    "assignees": 2,
+    "child": {}
+  }
+]

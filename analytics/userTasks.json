@@ -1,0 +1,807 @@
+[
+  {
+    "login": "Adrian-REH",
+    "modules": [
+      {
+        "moduleName": "Server-Side Pong",
+        "totalTasks": 1,
+        "participants": [
+          "Adrian-REH",
+          "grey-ssy",
+          "cacharri",
+          "SherlockPE"
+        ],
+        "ownerships": [],
+        "tasks": [
+          {
+            "title": "Replace basic Pong with server-side Pong and implement an API",
+            "assignees": 4
+          }
+        ]
+      },
+      {
+        "moduleName": "User Managment",
+        "totalTasks": 4,
+        "participants": [
+          "Adrian-REH",
+          "cacharri"
+        ],
+        "ownerships": [],
+        "tasks": [
+          {
+            "title": "Standard user management, authentication, users across tournaments",
+            "assignees": 2
+          },
+          {
+            "title": "Implementing a remote authentication.",
+            "assignees": 3
+          },
+          {
+            "title": "Implementing a remote authentication.",
+            "assignees": 3
+          },
+          {
+            "title": "Implementing a remote authentication.",
+            "assignees": 3
+          }
+        ]
+      },
+      {
+        "moduleName": "DevOps",
+        "totalTasks": 7,
+        "participants": [
+          "Adrian-REH",
+          "grey-ssy"
+        ],
+        "ownerships": [],
+        "tasks": [
+          {
+            "title": "Infrastructure setup for log management",
+            "assignees": 2
+          },
+          {
+            "title": "Monitoring system.",
+            "assignees": 4
+          },
+          {
+            "title": "Monitoring system.",
+            "assignees": 4
+          },
+          {
+            "title": "Monitoring system.",
+            "assignees": 4
+          },
+          {
+            "title": "Designing the backend as microservices.",
+            "assignees": 3
+          },
+          {
+            "title": "Designing the backend as microservices.",
+            "assignees": 3
+          },
+          {
+            "title": "Designing the backend as microservices.",
+            "assignees": 3
+          }
+        ]
+      },
+      {
+        "moduleName": "Cybersecurity",
+        "totalTasks": 3,
+        "participants": [
+          "Adrian-REH",
+          "cacharri",
+          "albartol"
+        ],
+        "ownerships": [],
+        "tasks": [
+          {
+            "title": "Implement WAF/ModSecurity with a hardened configuration and HashiCorp Vault for secrets management.",
+            "assignees": 3
+          },
+          {
+            "title": "Implement Two-Factor Authentication (2FA) and JWT.",
+            "assignees": 2
+          },
+          {
+            "title": "Create Auth service",
+            "assignees": 1,
+            "parent": "Implement Two-Factor Authentication (2FA) and JWT."
+          }
+        ]
+      },
+      {
+        "moduleName": "Web",
+        "totalTasks": 7,
+        "participants": [
+          "Adrian-REH",
+          "grey-ssy",
+          "cacharri",
+          "SherlockPE",
+          "albartol"
+        ],
+        "ownerships": [],
+        "tasks": [
+          {
+            "title": "Use a database for the backend.",
+            "assignees": 5
+          },
+          {
+            "title": "Use a framework to build the backend.",
+            "assignees": 3
+          },
+          {
+            "title": "Use a framework to build the backend.",
+            "assignees": 3
+          },
+          {
+            "title": "Use a framework to build the backend.",
+            "assignees": 3
+          },
+          {
+            "title": " Store the score of a tournament in the Blockchain.",
+            "assignees": 1
+          },
+          {
+            "title": "Use a framework or a toolkit to build the frontend.",
+            "assignees": 2
+          },
+          {
+            "title": "Use a framework or a toolkit to build the frontend.",
+            "assignees": 2
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "login": "SherlockPE",
+    "modules": [
+      {
+        "moduleName": "Graphics",
+        "totalTasks": 1,
+        "participants": [
+          "SherlockPE",
+          "albartol"
+        ],
+        "ownerships": [],
+        "tasks": [
+          {
+            "title": "Use advanced 3D techniques",
+            "assignees": 2
+          }
+        ]
+      },
+      {
+        "moduleName": "Server-Side Pong",
+        "totalTasks": 1,
+        "participants": [
+          "Adrian-REH",
+          "grey-ssy",
+          "cacharri",
+          "SherlockPE"
+        ],
+        "ownerships": [],
+        "tasks": [
+          {
+            "title": "Replace basic Pong with server-side Pong and implement an API",
+            "assignees": 4
+          }
+        ]
+      },
+      {
+        "moduleName": "User Managment",
+        "totalTasks": 1,
+        "participants": [
+          "Adrian-REH",
+          "cacharri",
+          "SherlockPE"
+        ],
+        "ownerships": [],
+        "tasks": [
+          {
+            "title": "Implementing a remote authentication.",
+            "assignees": 3
+          }
+        ]
+      },
+      {
+        "moduleName": "Accessibility",
+        "totalTasks": 1,
+        "participants": [
+          "SherlockPE"
+        ],
+        "ownerships": [],
+        "tasks": [
+          {
+            "title": "Support on all devices.",
+            "assignees": 1
+          }
+        ]
+      },
+      {
+        "moduleName": "DevOps",
+        "totalTasks": 2,
+        "participants": [
+          "Adrian-REH",
+          "grey-ssy",
+          "cacharri",
+          "SherlockPE"
+        ],
+        "ownerships": [],
+        "tasks": [
+          {
+            "title": "Monitoring system.",
+            "assignees": 4
+          },
+          {
+            "title": "Designing the backend as microservices.",
+            "assignees": 3
+          }
+        ]
+      },
+      {
+        "moduleName": "Gameplay And User Experience",
+        "totalTasks": 3,
+        "participants": [
+          "SherlockPE",
+          "albartol"
+        ],
+        "ownerships": [],
+        "tasks": [
+          {
+            "title": "Add another game with user history and matchmaking.",
+            "assignees": 2
+          },
+          {
+            "title": "Game customization options.",
+            "assignees": 2
+          },
+          {
+            "title": "Live chat.",
+            "assignees": 2
+          }
+        ]
+      },
+      {
+        "moduleName": "Web",
+        "totalTasks": 7,
+        "participants": [
+          "Adrian-REH",
+          "grey-ssy",
+          "cacharri",
+          "SherlockPE",
+          "albartol"
+        ],
+        "ownerships": [],
+        "tasks": [
+          {
+            "title": "Use a database for the backend.",
+            "assignees": 5
+          },
+          {
+            "title": "Use a framework to build the backend.",
+            "assignees": 3
+          },
+          {
+            "title": "Use a framework to build the backend.",
+            "assignees": 3
+          },
+          {
+            "title": "Use a framework to build the backend.",
+            "assignees": 3
+          },
+          {
+            "title": " Store the score of a tournament in the Blockchain.",
+            "assignees": 1
+          },
+          {
+            "title": "Use a framework or a toolkit to build the frontend.",
+            "assignees": 2
+          },
+          {
+            "title": "Use a framework or a toolkit to build the frontend.",
+            "assignees": 2
+          }
+        ]
+      },
+      {
+        "moduleName": "Ai-Algo",
+        "totalTasks": 1,
+        "participants": [
+          "cacharri",
+          "SherlockPE"
+        ],
+        "ownerships": [],
+        "tasks": [
+          {
+            "title": "Introduce an AI opponent.",
+            "assignees": 2
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "login": "albartol",
+    "modules": [
+      {
+        "moduleName": "Graphics",
+        "totalTasks": 1,
+        "participants": [
+          "SherlockPE",
+          "albartol"
+        ],
+        "ownerships": [],
+        "tasks": [
+          {
+            "title": "Use advanced 3D techniques",
+            "assignees": 2
+          }
+        ]
+      },
+      {
+        "moduleName": "Cybersecurity",
+        "totalTasks": 3,
+        "participants": [
+          "Adrian-REH",
+          "cacharri",
+          "albartol"
+        ],
+        "ownerships": [],
+        "tasks": [
+          {
+            "title": "Implement WAF/ModSecurity with a hardened configuration and HashiCorp Vault for secrets management.",
+            "assignees": 3
+          },
+          {
+            "title": "Implement Two-Factor Authentication (2FA) and JWT.",
+            "assignees": 2
+          },
+          {
+            "title": "Create Auth service",
+            "assignees": 1,
+            "parent": "Implement Two-Factor Authentication (2FA) and JWT."
+          }
+        ]
+      },
+      {
+        "moduleName": "Gameplay And User Experience",
+        "totalTasks": 9,
+        "participants": [
+          "grey-ssy",
+          "albartol"
+        ],
+        "ownerships": [],
+        "tasks": [
+          {
+            "title": "Remote players",
+            "assignees": 2
+          },
+          {
+            "title": "Multiplayer (more than 2 players in the same game).",
+            "assignees": 1
+          },
+          {
+            "title": "Multiplayer (more than 2 players in the same game).",
+            "assignees": 1
+          },
+          {
+            "title": "Add another game with user history and matchmaking.",
+            "assignees": 2
+          },
+          {
+            "title": "Add another game with user history and matchmaking.",
+            "assignees": 2
+          },
+          {
+            "title": "Game customization options.",
+            "assignees": 2
+          },
+          {
+            "title": "Game customization options.",
+            "assignees": 2
+          },
+          {
+            "title": "Live chat.",
+            "assignees": 2
+          },
+          {
+            "title": "Live chat.",
+            "assignees": 2
+          }
+        ]
+      },
+      {
+        "moduleName": "Web",
+        "totalTasks": 7,
+        "participants": [
+          "Adrian-REH",
+          "grey-ssy",
+          "cacharri",
+          "SherlockPE",
+          "albartol"
+        ],
+        "ownerships": [],
+        "tasks": [
+          {
+            "title": "Use a database for the backend.",
+            "assignees": 5
+          },
+          {
+            "title": "Use a framework to build the backend.",
+            "assignees": 3
+          },
+          {
+            "title": "Use a framework to build the backend.",
+            "assignees": 3
+          },
+          {
+            "title": "Use a framework to build the backend.",
+            "assignees": 3
+          },
+          {
+            "title": " Store the score of a tournament in the Blockchain.",
+            "assignees": 1
+          },
+          {
+            "title": "Use a framework or a toolkit to build the frontend.",
+            "assignees": 2
+          },
+          {
+            "title": "Use a framework or a toolkit to build the frontend.",
+            "assignees": 2
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "login": "cacharri",
+    "modules": [
+      {
+        "moduleName": "Server-Side Pong",
+        "totalTasks": 1,
+        "participants": [
+          "Adrian-REH",
+          "grey-ssy",
+          "cacharri",
+          "SherlockPE"
+        ],
+        "ownerships": [],
+        "tasks": [
+          {
+            "title": "Replace basic Pong with server-side Pong and implement an API",
+            "assignees": 4
+          }
+        ]
+      },
+      {
+        "moduleName": "User Managment",
+        "totalTasks": 4,
+        "participants": [
+          "Adrian-REH",
+          "cacharri"
+        ],
+        "ownerships": [],
+        "tasks": [
+          {
+            "title": "Standard user management, authentication, users across tournaments",
+            "assignees": 2
+          },
+          {
+            "title": "Implementing a remote authentication.",
+            "assignees": 3
+          },
+          {
+            "title": "Implementing a remote authentication.",
+            "assignees": 3
+          },
+          {
+            "title": "Implementing a remote authentication.",
+            "assignees": 3
+          }
+        ]
+      },
+      {
+        "moduleName": "DevOps",
+        "totalTasks": 2,
+        "participants": [
+          "Adrian-REH",
+          "grey-ssy",
+          "cacharri",
+          "SherlockPE"
+        ],
+        "ownerships": [],
+        "tasks": [
+          {
+            "title": "Monitoring system.",
+            "assignees": 4
+          },
+          {
+            "title": "Designing the backend as microservices.",
+            "assignees": 3
+          }
+        ]
+      },
+      {
+        "moduleName": "Cybersecurity",
+        "totalTasks": 3,
+        "participants": [
+          "Adrian-REH",
+          "cacharri",
+          "albartol"
+        ],
+        "ownerships": [],
+        "tasks": [
+          {
+            "title": "Implement WAF/ModSecurity with a hardened configuration and HashiCorp Vault for secrets management.",
+            "assignees": 3
+          },
+          {
+            "title": "Implement Two-Factor Authentication (2FA) and JWT.",
+            "assignees": 2
+          },
+          {
+            "title": "Create Auth service",
+            "assignees": 1,
+            "parent": "Implement Two-Factor Authentication (2FA) and JWT."
+          }
+        ]
+      },
+      {
+        "moduleName": "Ai-Algo",
+        "totalTasks": 3,
+        "participants": [
+          "grey-ssy",
+          "cacharri"
+        ],
+        "ownerships": [],
+        "tasks": [
+          {
+            "title": "User and game stats dashboards",
+            "assignees": 2
+          },
+          {
+            "title": "Introduce an AI opponent.",
+            "assignees": 2
+          },
+          {
+            "title": "Introduce an AI opponent.",
+            "assignees": 2
+          }
+        ]
+      },
+      {
+        "moduleName": "Web",
+        "totalTasks": 7,
+        "participants": [
+          "Adrian-REH",
+          "grey-ssy",
+          "cacharri",
+          "SherlockPE",
+          "albartol"
+        ],
+        "ownerships": [],
+        "tasks": [
+          {
+            "title": "Use a database for the backend.",
+            "assignees": 5
+          },
+          {
+            "title": "Use a framework to build the backend.",
+            "assignees": 3
+          },
+          {
+            "title": "Use a framework to build the backend.",
+            "assignees": 3
+          },
+          {
+            "title": "Use a framework to build the backend.",
+            "assignees": 3
+          },
+          {
+            "title": " Store the score of a tournament in the Blockchain.",
+            "assignees": 1
+          },
+          {
+            "title": "Use a framework or a toolkit to build the frontend.",
+            "assignees": 2
+          },
+          {
+            "title": "Use a framework or a toolkit to build the frontend.",
+            "assignees": 2
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "login": "grey-ssy",
+    "modules": [
+      {
+        "moduleName": "Server-Side Pong",
+        "totalTasks": 1,
+        "participants": [
+          "Adrian-REH",
+          "grey-ssy",
+          "cacharri",
+          "SherlockPE"
+        ],
+        "ownerships": [],
+        "tasks": [
+          {
+            "title": "Replace basic Pong with server-side Pong and implement an API",
+            "assignees": 4
+          }
+        ]
+      },
+      {
+        "moduleName": "DevOps",
+        "totalTasks": 7,
+        "participants": [
+          "Adrian-REH",
+          "grey-ssy"
+        ],
+        "ownerships": [],
+        "tasks": [
+          {
+            "title": "Infrastructure setup for log management",
+            "assignees": 2
+          },
+          {
+            "title": "Monitoring system.",
+            "assignees": 4
+          },
+          {
+            "title": "Monitoring system.",
+            "assignees": 4
+          },
+          {
+            "title": "Monitoring system.",
+            "assignees": 4
+          },
+          {
+            "title": "Designing the backend as microservices.",
+            "assignees": 3
+          },
+          {
+            "title": "Designing the backend as microservices.",
+            "assignees": 3
+          },
+          {
+            "title": "Designing the backend as microservices.",
+            "assignees": 3
+          }
+        ]
+      },
+      {
+        "moduleName": "Cybersecurity",
+        "totalTasks": 1,
+        "participants": [
+          "Adrian-REH",
+          "grey-ssy"
+        ],
+        "ownerships": [],
+        "tasks": [
+          {
+            "title": "Implement Two-Factor Authentication (2FA) and JWT.",
+            "assignees": 2
+          }
+        ]
+      },
+      {
+        "moduleName": "Ai-Algo",
+        "totalTasks": 3,
+        "participants": [
+          "grey-ssy",
+          "cacharri"
+        ],
+        "ownerships": [],
+        "tasks": [
+          {
+            "title": "User and game stats dashboards",
+            "assignees": 2
+          },
+          {
+            "title": "Introduce an AI opponent.",
+            "assignees": 2
+          },
+          {
+            "title": "Introduce an AI opponent.",
+            "assignees": 2
+          }
+        ]
+      },
+      {
+        "moduleName": "Gameplay And User Experience",
+        "totalTasks": 9,
+        "participants": [
+          "grey-ssy",
+          "albartol"
+        ],
+        "ownerships": [],
+        "tasks": [
+          {
+            "title": "Remote players",
+            "assignees": 2
+          },
+          {
+            "title": "Multiplayer (more than 2 players in the same game).",
+            "assignees": 1
+          },
+          {
+            "title": "Multiplayer (more than 2 players in the same game).",
+            "assignees": 1
+          },
+          {
+            "title": "Add another game with user history and matchmaking.",
+            "assignees": 2
+          },
+          {
+            "title": "Add another game with user history and matchmaking.",
+            "assignees": 2
+          },
+          {
+            "title": "Game customization options.",
+            "assignees": 2
+          },
+          {
+            "title": "Game customization options.",
+            "assignees": 2
+          },
+          {
+            "title": "Live chat.",
+            "assignees": 2
+          },
+          {
+            "title": "Live chat.",
+            "assignees": 2
+          }
+        ]
+      },
+      {
+        "moduleName": "Web",
+        "totalTasks": 7,
+        "participants": [
+          "Adrian-REH",
+          "grey-ssy",
+          "cacharri",
+          "SherlockPE",
+          "albartol"
+        ],
+        "ownerships": [],
+        "tasks": [
+          {
+            "title": "Use a database for the backend.",
+            "assignees": 5
+          },
+          {
+            "title": "Use a framework to build the backend.",
+            "assignees": 3
+          },
+          {
+            "title": "Use a framework to build the backend.",
+            "assignees": 3
+          },
+          {
+            "title": "Use a framework to build the backend.",
+            "assignees": 3
+          },
+          {
+            "title": " Store the score of a tournament in the Blockchain.",
+            "assignees": 1
+          },
+          {
+            "title": "Use a framework or a toolkit to build the frontend.",
+            "assignees": 2
+          },
+          {
+            "title": "Use a framework or a toolkit to build the frontend.",
+            "assignees": 2
+          }
+        ]
+      }
+    ]
+  }
+]
