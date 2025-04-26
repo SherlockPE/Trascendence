@@ -20,6 +20,18 @@ services:
     networks:
       - transcendence-net
 
+  auth-service:
+    build:
+      context: ./back-end/auth-service/
+      dockerfile: Dockerfile
+    container_name: auth-service
+    env_file:
+      - .env
+    ports:
+      - "3020:3020"
+    networks:
+      - transcendence-net
+
   front-end:
     build:
       context: ./front-end/
