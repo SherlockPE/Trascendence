@@ -1,0 +1,231 @@
+openapi: 3.0.0
+info:
+  title: User Management API
+  version: 1.1.0
+  description: API completa para gestionar usuarios, perfiles y amigos
+
+servers:
+  - url: http://localhost:3000/api
+
+paths:
+  /users:
+    post:
+      summary: Crear usuario
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewUser'
+      responses:
+        '201':
+          description: Usuario creado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Datos inválidos
+    get:
+      summary: Listado de usuarios
+      responses:
+        '200':
+          description: Lista de usuarios
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+
+  /users/me:
+    get:
+      summary: Obtener perfil del usuario autenticado
+      responses:
+        '200':
+          description: Perfil propio
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+
+  /users/{userId}:
+    get:
+      summary: Ver perfil público de un usuario
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Perfil de usuario
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+    delete:
+      summary: Eliminar usuario
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Usuario eliminado
+        '404':
+          description: Usuario no encontrado
+    put:
+      summary: Actualizar perfil
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUser'
+      responses:
+        '200':
+          description: Perfil actualizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+
+  /users/{userId}/avatar:
+    patch:
+      summary: Actualizar avatar del usuario
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                avatar_url:
+                  type: string
+      responses:
+        '200':
+          description: Avatar actualizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+
+  /users/{userId}/friends:
+    post:
+      summary: Agregar amigo
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                friendId:
+                  type: string
+      responses:
+        '200':
+          description: Amigo agregado
+    get:
+      summary: Ver lista de amigos
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Lista de amigos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+
+  /users/{userId}/friends/{friendId}:
+    delete:
+      summary: Quitar amigo
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: friendId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Amigo eliminado
+
+components:
+  schemas:
+    NewUser:
+      type: object
+      required:
+        - username
+        - email
+        - password
+      properties:
+        username:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+          format: password
+
+    UpdateUser:
+      type: object
+      properties:
+        alias:
+          type: string
+        avatar_url:
+          type: string
+        is_online:
+          type: boolean
+
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+        username:
+          type: string
+        alias:
+          type: string
+        email:
+          type: string
+        avatar_url:
+          type: string
+        friends:
+          type: array
+          items:
+            type: string
+        is_online:
+          type: boolean
