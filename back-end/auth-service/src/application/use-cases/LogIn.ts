@@ -15,9 +15,6 @@ export default class LogIn {
 		{
 			//TODO validar con BCrypt la contraseña
 			session.password; 
-			//TODO: notificar por sendEmail();
-
-			//TODO genero un JWT y lo devuelvo
 			return {jwt:"JWT"}
 		} else {
 			//En caso de que no exista devolver un error especifico para 400
