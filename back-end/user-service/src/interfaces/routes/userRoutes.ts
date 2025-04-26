@@ -6,6 +6,7 @@ import { UserController } from "../controllers/UserController";
 import { AddUser } from "../../application/use-cases/AddUser";
 import { UpdateUser } from "../../application/use-cases/UpdateUser";
 import { userDtoSchema } from "../../domain/entities/User";
+import { LoadUsers } from "../../application/use-cases/LoadUsers";
 
 
 export async function userRoutes(fastify: FastifyInstance) {
@@ -13,7 +14,8 @@ export async function userRoutes(fastify: FastifyInstance) {
     const getUser = new LoadUser(userRepo);
     const saveUser = new AddUser(userRepo);
     const updateUser = new UpdateUser(userRepo);
-    const userController = new UserController(getUser, saveUser, updateUser);
+	const getAllUsers = new LoadUsers(userRepo);
+    const userController = new UserController(getUser, saveUser, updateUser,getAllUsers);
 
     fastify.get("/api/v1/users/:userId",{
 		schema: {
@@ -31,6 +33,7 @@ export async function userRoutes(fastify: FastifyInstance) {
 		  tags: ['user'],
 		},
 	  }, userController.userById.bind(userController));
+
     fastify.post("/api/v1/users/save-user",{
 		schema: {
 		  body: userDtoSchema,
@@ -41,6 +44,7 @@ export async function userRoutes(fastify: FastifyInstance) {
 		  tags: ['user'],
 		},
 	  }, userController.saveUserHandler.bind(userController));
+	  
     fastify.post("/api/v1/users/:userId",{
 		schema: {
             params: {
@@ -58,4 +62,7 @@ export async function userRoutes(fastify: FastifyInstance) {
 		  tags: ['user'],
 		},
 	  }, userController.updateUserHandler.bind(userController));
+
+	fastify.get("/api/v1/users",userController.getUsers.bind(userController))
+	fastify.post("/api/v1/users",() => {});	
 }
