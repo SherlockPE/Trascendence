@@ -13,6 +13,7 @@ class UserSingleton  {
 			this.instance.users = [{
 					id: "1",
 					name: "User 1",
+					passoword: "$2a$12$N4H9M.e1h/bP.xxhvHXYu.hpCqOzcJqQBlH61MvDdW9yHdcTt7OOq",
 					contacts: [
 						{  sender_id: "1", receiver_id: "2" },
 						{  sender_id: "1", receiver_id: "3" }
@@ -21,6 +22,7 @@ class UserSingleton  {
 				{
 					id: "2",
 					name: "User 2",
+					passoword: "$2a$12$N4H9M.e1h/bP.xxhvHXYu.hpCqOzcJqQBlH61MvDdW9yHdcTt7OOq",
 					contacts: [
 						{ sender_id: "2", receiver_id: "1" },
 						{  sender_id: "2", receiver_id: "3" }
@@ -29,6 +31,7 @@ class UserSingleton  {
 				{
 					id: "3",
 					name: "User 3",
+					passoword: "$2a$12$N4H9M.e1h/bP.xxhvHXYu.hpCqOzcJqQBlH61MvDdW9yHdcTt7OOq",
 					contacts: [
 						{ sender_id: "3", receiver_id: "1" },
 						{  sender_id: "3", receiver_id: "2" }
@@ -39,11 +42,11 @@ class UserSingleton  {
     }
 
 	public async getUserById(userId: string): Promise<User> {
-		const chat = this.users.find(chat => chat.id === userId);
-		if (!chat) {
-			throw new Error(`Chat with id ${userId} not found`);
+		const user:User = this.users.find(user => user.id === userId);
+		if (!user) {
+			throw new Error(`User with id ${userId} not found`);
 		}
-		return chat;
+		return user;
 	}
 
 	 async getAllUsers(): Promise<User[]> {
@@ -56,7 +59,7 @@ class UserSingleton  {
 	 async updateUser(userId: string, updatedUser: User): Promise<void> {
 		const index = this.users.findIndex(user => user.id === userId);
 		if (index === -1) {
-			throw new Error(`Chat with id ${userId} not found`);
+			throw new Error(`User with id ${userId} not found`);
 		}
 		this.users[index] = updatedUser;
 	}
