@@ -2,7 +2,10 @@ import { UserRepositoryPort } from "../ports/UserRepositoryPort";
 import { User } from "../../domain/entities/User";
 
 export class LoadUser {
-    constructor(private userRepository: UserRepositoryPort) {}
+    private userRepository: UserRepositoryPort;
+    constructor(userRepository: UserRepositoryPort) {
+        this.userRepository = userRepository;
+    }
 
     async execute(userId: string): Promise<User> {
         return this.userRepository.getUserById(userId);
