@@ -23,6 +23,7 @@ export default class AuthController {
 			reply.status(401).send({ error: "Usuario o contraseña incorrectos" });
 			return;
 		}
+		//TODO:Add roles to the JWT token
 		const jwt = this.fastify.jwt.sign({ user: auth.username, roles: ["view"] }, { expiresIn: "1h" });
 		reply.send({jwt: jwt});
 	}

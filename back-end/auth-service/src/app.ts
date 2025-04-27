@@ -17,11 +17,10 @@ const errorCodes = require('fastify').errorCodes
 export async function buildApp():Promise<FastifyInstance> {
 	dotenv.config();
 
-
 	const fastify: FastifyInstance = Fastify({ logger: true });
 
 	fastify.register(require("@fastify/jwt"), {
-	secret: "supersecret",
+		secret: process.env.JWT_SECRET,
 	});
 
 	fastify.register(fastifyBcrypt, {

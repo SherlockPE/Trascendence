@@ -20,33 +20,29 @@ export class ChatController {
         this.getChatById = getChatById;
     }
     async getMessagesHandler(req: FastifyRequest<{Params: ChatParams}>, reply: FastifyReply) {
-        try {
-            const chatId = req.params.chatId as string;
-            const messages = await this.getMessages.execute(chatId);
-            reply.send(messages);
-        } catch (error) {
-            reply.status(500).send({ error: "Error al obtener mensajes" });
-        }
+        const decoded:{ user:string, roles: string[] } =  await req.jwtVerify();
+
+        const chatId = req.params.chatId as string;
+        const messages = await this.getMessages.execute(decoded.user, chatId);
+        reply.send(messages);
+
     }
     
     async getChatHandler(req: FastifyRequest<{Params: ChatParams}>, reply: FastifyReply) {
-        try {
-            const chatId = req.params.chatId as string;
-            const chat = await this.getChat.execute(chatId);
-            reply.send(chat);
-        } catch (error) {
-            reply.status(500).send({ error: "Error al obtener mensajes" });
-        }
+        const decoded:{ user:string, roles: string[] } =  await req.jwtVerify();
+
+        const chatId = req.params.chatId as string;
+        const chat = await this.getChat.execute(decoded.user, chatId);
+        reply.send(chat);
+
     }
-    async getChatsByIdHandler(req: FastifyRequest<{Params: ChatByIdParams}>, reply: FastifyReply) {
-        try {
-            const chatId = req.params.userId as string;
-            const chat = await this.getChatById.execute(chatId);
-            reply.send(chat);
-        } catch (error) {
-            console.log(error);
-            reply.status(500).send({ error: "Error al obtener los chats" });
-        }
+    async getChatsByIdHandler(req: FastifyRequest<{ Params: ChatByIdParams}>, reply: FastifyReply) {
+        const decoded:{ user:string, roles: string[] } =  await req.jwtVerify();
+
+        const chatId = req.params.userId as string;
+        const chat = await this.getChatById.execute(decoded.user,chatId);
+        reply.send(chat);
+
     }
 
 }

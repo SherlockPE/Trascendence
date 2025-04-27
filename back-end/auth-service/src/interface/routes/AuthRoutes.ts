@@ -8,11 +8,10 @@ import { FastifyJWTOptions } from "@fastify/jwt";
 import roleGuard from "../guards/RoleGuard";
 import LogIn from "../../application/use-cases/LogIn";
 import { userDtoSchema } from "../../domain/dto/User";
-import UserTemplate from "../../infrastructure/rest/UserTemplate";
 import { UserRepository } from "../../infrastructure/rest/UserRepository";
 
 
-export default function authRoutes(fastify: FastifyJWTOptions & FastifyInstance, userRepository: UserRepository) {
+export default async function authRoutes(fastify: FastifyJWTOptions & FastifyInstance, userRepository: UserRepository) {
   const userRepositoryPort: UserRepositoryPort = new UserRepositoryAdapter(userRepository);
   const logIn: LogIn = new LogIn(userRepositoryPort);
   const signUp: SignUp = new SignUp(userRepositoryPort);
