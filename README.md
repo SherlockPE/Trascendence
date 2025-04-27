@@ -103,26 +103,17 @@ npm run dev
 *WebSocket*
 - ``/chats/connect-ws``
 
-
 **Swagger**
 ```http
 http://localhost:3000/docs
 
 ```
 
-### Comando para ejecutar
+## Ejecutar el proyecto
+Se puede hacer uso de docker compose para iniciar el proyecto
 ```bash
 docker compose up -d
 ```
-### Swagger
-Chat Service
-User Service
-
-Auth Service
-```http
-http://localhost:3020/docs
-```
-
 
 ---
 
