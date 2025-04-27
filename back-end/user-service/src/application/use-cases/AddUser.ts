@@ -4,7 +4,10 @@ import { User } from "../../domain/entities/User";
 export class AddUser {
     constructor(private userRepository: UserRepositoryPort) {}
 
-    async execute(userId: User): Promise<void> {
-        this.userRepository.saveUser(userId);
+    async execute(user: User): Promise<User> {
+       await this.userRepository.saveUser(user);
+       user.passoword = undefined;
+       user.contacts = undefined;
+        return user;
     }
 }

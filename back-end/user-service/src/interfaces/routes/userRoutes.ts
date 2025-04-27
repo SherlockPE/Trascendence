@@ -7,6 +7,7 @@ import { AddUser } from "../../application/use-cases/AddUser";
 import { UpdateUser } from "../../application/use-cases/UpdateUser";
 import { userDtoSchema } from "../../domain/entities/User";
 import { LoadUsers } from "../../application/use-cases/LoadUsers";
+import { LoadHash } from "../../application/use-cases/LoadHash";
 
 
 export async function userRoutes(fastify: FastifyInstance) {
@@ -15,7 +16,30 @@ export async function userRoutes(fastify: FastifyInstance) {
     const saveUser = new AddUser(userRepo);
     const updateUser = new UpdateUser(userRepo);
 	const getAllUsers = new LoadUsers(userRepo);
-    const userController = new UserController(getUser, saveUser, updateUser,getAllUsers);
+	const getHashByUserId = new LoadHash(userRepo);
+    const userController = new UserController(getUser, saveUser, updateUser,getAllUsers, getHashByUserId);
+
+	fastify.get("/api/v1/users/:userId/hash",{
+		schema: {
+		  params: {
+            type: 'object',
+            properties: {
+              userId: { type: 'string' },
+            },
+            required: ['userId'],
+          },
+		  response: {
+			200: {
+				type: 'object',
+				properties: {
+				  passwordHash: { type: 'string' },
+				},
+			  }
+		  },
+		  summary: 'Get password hash by userId',
+		  tags: ['user'],
+		},
+	}, userController.getHashByUserId.bind(userController));
 
     fastify.get("/api/v1/users/:userId",{
 		schema: {
@@ -27,7 +51,8 @@ export async function userRoutes(fastify: FastifyInstance) {
             required: ['userId'],
           },
 		  response: {
-			200: {type: 'object'},
+			200: userDtoSchema
+
 		  },
 		  summary: 'Get user',
 		  tags: ['user'],

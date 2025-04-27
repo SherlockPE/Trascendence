@@ -15,6 +15,7 @@ export class ChatWebSocketController {
 
     async handleConnection(connection: any, req: any) {
         try {
+            
             await this.verifyConnection.execute(connection, req);
 
             await this.listenMessage.execute(connection, req);
@@ -23,6 +24,7 @@ export class ChatWebSocketController {
             console.error("Error en la conexión WebSocket:", error);
             connection.send(JSON.stringify({ error: "Error al obtener mensajes" }));
             connection.close();
+            throw error;
         } finally {
             this.closeSession.execute(connection, req);
         }

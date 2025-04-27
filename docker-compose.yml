@@ -19,6 +19,22 @@ services:
       - "3000:3000"
     networks:
       - transcendence-net
+    depends_on:
+      - auth-service
+
+  auth-service:
+    build:
+      context: ./back-end/auth-service/
+      dockerfile: Dockerfile
+    container_name: auth-service
+    env_file:
+      - .env
+    ports:
+      - "3020:3020"
+    networks:
+      - transcendence-net
+    depends_on:
+      - user-service
 
   front-end:
     build:

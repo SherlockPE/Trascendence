@@ -5,15 +5,15 @@ interface Connect {
 }
 
 export interface UserDto {
-    name: string;
+    username: string;
     contacts: Connect[]; //Join
 }
 
 export const userDtoSchema = {
 	type: 'object',
-	required: ['name', 'contacts'],
+	required: ['username',],
 	properties: {
-	  name: { type: 'string' },
+		username: { type: 'string' },
 	  contacts: {
 		type: 'array',
 		items: {

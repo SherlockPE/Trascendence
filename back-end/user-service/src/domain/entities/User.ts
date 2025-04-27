@@ -7,13 +7,14 @@ interface Connect {
 export interface User {
     id: string;
     name: string;
-    contacts: Connect[];
+	passoword?: string;
+    contacts?: Connect[];
 }
 
 
 export const userDtoSchema = {
 	type: 'object',
-	required: ['id','name', 'contacts'],
+	required: ['id','name'],
 	properties: {
 	  id: { type: 'string' },
 	  name: { type: 'string' },

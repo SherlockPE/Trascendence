@@ -11,5 +11,4 @@ export interface  ChatRepositoryPort {
     getChatById(chatId: string): Promise<Chat>;
     getChatByMembers(userIds: string[]): Promise<Chat[]>;
     getMessagesByChatId(chatId: string): Promise<Message[]>;
-
 }

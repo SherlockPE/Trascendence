@@ -38,10 +38,9 @@ export class UserRepositoryAdapter implements UserRepositoryPort {
     private async init() {
         this.userSingleton = await UserSingleton.getInstance();
     }
-    
 
     async getUserById(userId: string): Promise<User> {
-        const user = await this.userSingleton.getUserById(userId);
+        const user:User = await this.userSingleton.getUserById(userId);
         if (!user) {
             throw new Error(`user with ID ${userId} not found.`);
         }
