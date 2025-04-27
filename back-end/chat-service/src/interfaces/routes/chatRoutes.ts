@@ -20,7 +20,7 @@ export default async function chatRoutes(fastify: FastifyInstance, userRepositor
     const getChat = new LoadChat(messageRepo);
     const chatController = new ChatController(getMessages, getChat, getChatById);
 
-    fastify.get("/chats/:chatId/messages", {
+    fastify.get("/api/v1/chats/:chatId/messages", {
 		preHandler: roleGuard(['view', 'admin'], userRepository),
 		schema: {
 		  params: {
@@ -42,7 +42,7 @@ export default async function chatRoutes(fastify: FastifyInstance, userRepositor
 		  ],
 		},
 	  },chatController.getMessagesHandler.bind(chatController));
-    fastify.get("/chats/:chatId",{
+    fastify.get("/api/v1/chats/:chatId",{
 		preHandler: roleGuard(['view', 'admin'], userRepository),
 		schema: {
 		  params: {
@@ -64,7 +64,7 @@ export default async function chatRoutes(fastify: FastifyInstance, userRepositor
 		  ],
 		},
 	  } ,chatController.getChatHandler.bind(chatController));
-    fastify.get("/chats/user/:userId",{
+    fastify.get("/api/v1/chats/user/:userId",{
 		preHandler: roleGuard(['view', 'admin'], userRepository),
 		schema: {
 		  params: {
