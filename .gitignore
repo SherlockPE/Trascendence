@@ -48,3 +48,4 @@ back-end/auth-service/docs/modules/interface_routes_AuthRoutes.html
 back-end/auth-service/docs/modules/server.html
 back-end/auth-service/docs/variables/domain_dto_SessionDto.sessionDtoSchema.html
 back-end/auth-service/docs/variables/domain_dto_User.userDtoSchema.html
+.env

@@ -43,7 +43,7 @@ class MockUserRepository implements UserRepository {
 	}
 }
 
-/** 
+ 
 describe('auth signIn test', async () => {
 	let app: FastifyInstance = null;
 
@@ -113,7 +113,7 @@ describe('auth signIn test', async () => {
 
 });
 
- */
+
 describe('auth signUp test', async () => {
 	let app: FastifyInstance = null;
 
