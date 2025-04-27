@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "ts-node src/server.ts",
     "build": "tsc",
+    "test": "ts-node test/run-tests.ts",
     "start": "node dist/server.js"
   },
   "author": "",

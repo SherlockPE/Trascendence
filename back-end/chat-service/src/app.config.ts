@@ -12,7 +12,7 @@ import { HandleException } from "./domain/exception/HandleException";
  * @author Adrian Herrera
  * @description This function sets up the Fastify server with Swagger documentation and CORS support.
  */
-export async function configApp() {
+export default async function configApp() {
 	dotenv.config();
 	const fastify: FastifyInstance = Fastify({ logger: true ,}); 
 

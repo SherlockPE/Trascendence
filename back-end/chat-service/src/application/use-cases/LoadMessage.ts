@@ -19,13 +19,10 @@ export default class LoadMessage {
      */
     async execute(userId: string, chatId: string): Promise<Message[]> {
         return await this.chatRepository.getChatByMembers([userId]).then((chats) => {
-            console.log("chats: ", chats);
-
             if (chats.length === 0) {
                 throw new HandleException("No chat found for the user", 404, "Not Found");
             }
             const chat:Chat = chats.find((chat) => chat.id === chatId);
-            console.log("chat:",chat);
             if (!chat) {
                 throw new HandleException("User does not have access to this chat", 403, "Forbidden");
             }

@@ -1,6 +1,6 @@
 import chatRoutes from "./interfaces/routes/chatRoutes";
 import fastifyWebsocket from "@fastify/websocket";
-import { configApp } from "./app.config";
+import configApp from "./app.config";
 import UserTemplate from "./infrastructure/rest/UserTemplate";
 import chatWebSocketRoutes from "./interfaces/routes/chatWebSocketRoutes";
 
