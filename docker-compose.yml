@@ -1,12 +1,26 @@
 
 services:
+
   user-service:
     build:
       context: ./back-end/user-service/
       dockerfile: Dockerfile
     container_name: user-service
+    networks:
+      - transcendence-net
+  nginx:
+    build:
+      context: ./back-end/nginx
+      dockerfile: Dockerfile
+    container_name: nginx
+    restart: always
+    env_file:
+      - ./.env
     ports:
-      - "3010:3010"
+      - "443:443"
+    depends_on:
+      chat-service:
+        condition: service_started
     networks:
       - transcendence-net
 
@@ -15,8 +29,6 @@ services:
       context: ./back-end/chat-service/
       dockerfile: Dockerfile
     container_name: chat-service
-    ports:
-      - "3000:3000"
     networks:
       - transcendence-net
     depends_on:
@@ -29,8 +41,6 @@ services:
     container_name: auth-service
     env_file:
       - .env
-    ports:
-      - "3020:3020"
     networks:
       - transcendence-net
     depends_on:

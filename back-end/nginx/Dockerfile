@@ -11,9 +11,9 @@ RUN apt-get update && apt-get install -y \
     && ln -sf /dev/stderr /var/log/nginx/error.log 
 
 # Copia los archivos de configuración personalizados
-COPY /requirements/nginx/tools/nginx.conf /etc/nginx/nginx.conf
-COPY /requirements/nginx/tools/default.conf /etc/nginx/conf.d/default.conf
-COPY /requirements/nginx/tools/certs /etc/nginx/certs
+COPY /tools/nginx.conf /etc/nginx/nginx.conf
+COPY /tools/default.conf /etc/nginx/conf.d/default.conf
+COPY /tools/certs /etc/nginx/certs
 
 # Expone el puerto 443
 EXPOSE 443
