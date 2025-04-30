@@ -1,7 +1,7 @@
 import { ChatRepositoryPort } from "../ports/ChatRepositoryPort";
 import { Message } from "../../domain/entities/Message";
 import { HandleException } from "../../domain/exception/HandleException";
-import { Chat } from "src/domain/entities/Chat";
+import { Chat } from "../../domain/entities/Chat";
 
 export default class LoadMessage {
     private chatRepository: ChatRepositoryPort;

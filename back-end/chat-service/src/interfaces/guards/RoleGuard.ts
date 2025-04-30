@@ -1,6 +1,6 @@
 import { error } from "console";
 import { FastifyReply, FastifyRequest } from "fastify";
-import { UserRepositoryPort } from "src/application/ports/UserRepositoryPort";
+import { UserRepositoryPort } from "../../application/ports/UserRepositoryPort";
 
 
 

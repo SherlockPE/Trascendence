@@ -8,7 +8,7 @@ import CloseSession from "../../application/use-cases/CloseSession";
 import { SessionRepositoryAdapter } from "../../infrastructure/repositories/SessionRepositoryAdapter";
 import VerifyConnection from "../../application/use-cases/VerifyConnection";
 import roleGuard from "../guards/RoleGuard";
-import UserRepositoryStore from "src/infrastructure/rest/UserRepositoryStore";
+import UserRepositoryStore from "../../infrastructure/rest/UserRepositoryStore";
 
 export default async function chatWebSocketRoutes(fastify: FastifyInstance, userReositoryStore: UserRepositoryStore ) {
     const listenMessage = new ListenMessage(new ChatRepositoryAdapter(), new SessionRepositoryAdapter());
@@ -19,7 +19,7 @@ export default async function chatWebSocketRoutes(fastify: FastifyInstance, user
     const chatWSController = new ChatWebSocketController(listenMessage, closeSession, verifyConnection);
     //fastify.register(fastifyWebsocket);
 
-    fastify.get('/chats/connect-ws',{
+    fastify.get('/api/v1/chats/connect-ws',{
       preHandler: roleGuard(['view', 'admin'], userRepository),
         websocket: true,
         schema: {

@@ -5,6 +5,7 @@ import swaggerUI from "@fastify/swagger-ui";
 import dotenv from 'dotenv';
 import fastifyJwt, { FastifyJWTOptions } from '@fastify/jwt'
 import { HandleException } from "./domain/exception/HandleException";
+import {fastifyCookie} from "@fastify/cookie";
 
 /**
  * Configures the Fastify application with Swagger and CORS.
@@ -15,6 +16,7 @@ import { HandleException } from "./domain/exception/HandleException";
 export default async function configApp() {
 	dotenv.config();
 	const fastify: FastifyInstance = Fastify({ logger: true ,}); 
+	fastify.register(fastifyCookie);
 
 	fastify.register(fastifySwagger, {
 		openapi: {
@@ -58,6 +60,10 @@ export default async function configApp() {
 	
 	fastify.register(require("@fastify/jwt"), {
 		secret: process.env.JWT_SECRET,
+		cookie: {
+			signed: false,
+			cookieName: 'token',
+		},
 	});
 	fastify.register(swaggerUI, {
 		routePrefix: '/docs',
@@ -65,7 +71,7 @@ export default async function configApp() {
 	fastify.register(cors, {
 		origin: '*',
 		methods: ['GET', 'POST'],
-		allowedHeaders: ['Content-Type', 'Authorization'],
+		allowedHeaders: ['Content-Type', 'Authorization', 'Accept', 'Cookie', 'Set-Cookie'],
 	});
 	fastify.setErrorHandler((error, request: FastifyRequest, reply: FastifyReply) => {
 		try {

@@ -2,7 +2,7 @@ import { User } from "../../domain/entities/User";
 import UserRepositoryStore from "./UserRepositoryStore";
 
 class UserTemplate implements UserRepositoryStore {
-	private url = "http://user-service:3010/api/v1/users";
+	private url = process.env.URI_USER_SERVICE || "http://user-service:3010/api/v1/users";
 
     public constructor() {} // Evita instanciar directamente
 
