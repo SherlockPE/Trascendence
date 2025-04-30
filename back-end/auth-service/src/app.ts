@@ -7,7 +7,7 @@ import dotenv from 'dotenv';
 import fastifyBcrypt from 'fastify-bcrypt';
 import { HandleException } from "./domain/exception/HandleException";
 const errorCodes = require('fastify').errorCodes
-
+import {fastifyCookie} from "@fastify/cookie";
 
 
 /**
@@ -21,7 +21,13 @@ export async function buildApp():Promise<FastifyInstance> {
 
 	fastify.register(require("@fastify/jwt"), {
 		secret: process.env.JWT_SECRET,
+		cookie: {
+			signed: false,
+			cookieName: 'token',
+		},
+
 	});
+	fastify.register(fastifyCookie);
 
 	fastify.register(fastifyBcrypt, {
 	saltWorkFactor: process.env.SALT_ROUNDS ? parseInt(process.env.SALT_ROUNDS) : 10,
@@ -70,7 +76,7 @@ export async function buildApp():Promise<FastifyInstance> {
 	fastify.register(cors, {
 		origin: '*',
 		methods: ['GET', 'POST'],
-		allowedHeaders: ['Content-Type', 'Authorization'],
+		allowedHeaders: ['Content-Type', 'Authorization', 'Accept', 'Cookie', 'Set-Cookie'],
 	});
 
 	fastify.setErrorHandler((error, request: FastifyRequest, reply: FastifyReply) => {

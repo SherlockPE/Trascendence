@@ -1,6 +1,7 @@
 import { UserDto } from "../../domain/dto/User";
 import { User } from "../../domain/entities/User";
 import { UserRepository } from "./UserRepository";
+import dotenv from "dotenv";
 
 class UserTemplate  implements UserRepository {
 
@@ -13,7 +14,7 @@ class UserTemplate  implements UserRepository {
 		console.log("passwordHash:" + body.passwordHash);
 		return body.passwordHash;
 	}
-	private url = "http://localhost:3010/api/v1/users";
+	private url = process.env.URI_USER_SERVICE || "http://user-service:3010/api/v1/users";
 
     public constructor() {} // Evita instanciar directamente
 
