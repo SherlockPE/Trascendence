@@ -56,11 +56,13 @@ services:
 
   front-end:
     build:
-      context: ./front-end/
+      context: ./front/
       dockerfile: Dockerfile
     container_name: front-end
+    env_file:
+      - .env
     ports:
-      - "3030:3030"
+      - "3040:3040"
     networks:
       - transcendence-net
 
