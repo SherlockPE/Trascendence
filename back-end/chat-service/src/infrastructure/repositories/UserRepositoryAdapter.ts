@@ -32,7 +32,7 @@ export class UserRepositoryAdapter implements UserRepositoryPort {
 
 
     async getUserById(userId: string): Promise<User> {
-        const user = await this.userTemplate.getUserById(userId);
+        const user:User = await this.userTemplate.getUserById(userId);
         if (!user) {
             throw new Error(`user with ID ${userId} not found.`);
         }
