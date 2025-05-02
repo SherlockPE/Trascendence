@@ -20,7 +20,6 @@ export default async function chatWebSocketRoutes(fastify: FastifyInstance, user
     //fastify.register(fastifyWebsocket);
 
     fastify.get('/api/v1/chats/connect-ws',{
-      preHandler: roleGuard(['view', 'admin'], userRepository),
         websocket: true,
         schema: {
           summary: 'WebSocket Chat Connection',
@@ -31,7 +30,6 @@ export default async function chatWebSocketRoutes(fastify: FastifyInstance, user
             properties: {
                 userId: { type: 'number' },
             },
-            required: ['userId'],
             },
           response: {
             101: {
