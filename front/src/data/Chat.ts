@@ -1,3 +1,5 @@
+
+
 export class Chat {
 	id: string;
 	titleGroup: string;

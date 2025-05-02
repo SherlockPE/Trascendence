@@ -1,5 +1,3 @@
-import { Button } from "../../components/Button/Button";
-import { Card } from "../../components/Card/Card";
 import { ChatItem } from "../../components/ChatItem/ChatItem";
 import { Navigation } from "../../components/Navigation/Navigation";
 import { Chat } from "../../data/Chat";

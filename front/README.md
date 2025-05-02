@@ -13,10 +13,6 @@ proyecto/
 │   │   │   ├── Card.html
 │   │   │   └── index.ts
 │   │   └── ...
-│   ├── layouts/          # Plantillas de página 
-│   │   ├── MainLayout.ts
-│   │   ├── MainLayout.html
-│   │   └── ...
 │   ├── pages/            # Páginas concretas
 │   │   ├── home/
 │   │   │   ├── home.ts
