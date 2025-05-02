@@ -1,3 +1,4 @@
+import { HandleException } from "../../domain/exception/HandleException";
 import { Chat } from "../../domain/entities/Chat";
 import { Message } from "../../domain/entities/Message";
 import { User } from "../../domain/entities/User";
@@ -19,22 +20,28 @@ export class ListenMessage {
 	}
 
 	async execute(connection:any, req: any): Promise<void> {
+
 	   connection.on('message', async (message) => {
-			const { userId } = req.query;
-			if (!req.headers['x-user-id'] && !userId) {
+		const decoded:{ user:string, roles: string[] } =  await req.jwtVerify();
+		let userId = decoded.user;
+			if (!userId) {
 				console.log("No estas autorizado para conectarte, create una cuenta");
 				connection.close();
-				throw Error("No se tiene permiso para la conexion");
+				throw new HandleException("No se tiene permiso para la conexion", 401, "Unauthorized");
 			}
-			const userIdHeader = req.headers['x-user-id'] ? req.headers['x-user-id'] : userId;
 			const msg_json: Message = JSON.parse(message.toString());
 			let chat: Chat | undefined;
 			try {
 				chat = await this.chatRepository.getChatById(msg_json.chatId);
+				if (!chat) {
+					console.log("El chat no existe", msg_json.chatId);
+					connection.send(JSON.stringify({error: "El chat no existe"}));
+					return ;
+				}
 				//Comprobar si la session sera un ID de seguridad como JWT o simplemente un ID de usuario
-				const wsUsr: WebSocketUser = await this.sessionRepositoryPort.getSessionByUserId(userIdHeader);
+				const wsUsr: WebSocketUser = await this.sessionRepositoryPort.getSessionByUserId(userId);
 				if (!wsUsr) {
-					console.log("El usuario no tiene acceso", userIdHeader);
+					console.log("El usuario no tiene acceso", userId);
 					connection.close();
 					return;
 				}

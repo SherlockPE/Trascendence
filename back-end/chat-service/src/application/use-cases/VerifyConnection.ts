@@ -15,19 +15,20 @@ export default class VerifyConnection {
 	async execute(connection:any, req:any) {
         const decoded:{ user:string, roles: string[] } =  await req.jwtVerify();
 		let userId = decoded.user;
-		userId = req.headers['x-user-id']? req.headers['x-user-id'] : userId;
 		if (!decoded.user) {
 			connection.close();
-			throw new HandleException("No estas autorizado para conectarte, create una cuenta", 401, "Unauthorized");
+			throw new HandleException("El usuario no es correcto", 401, "Unauthorized");
 		}
 		const user:User | undefined = await this.userRepository.getUserById(userId);
 		if (!user) {
 			console.log("No estas autorizado para conectarte, create una cuenta");
 			connection.close();
-			throw Error("No se tiene permiso para la conexion");
+			throw new HandleException("No se tiene permiso para la conexion", 401, "Unauthorized");
 		}
 		const wsUser:WebSocketUser = ({ user: user, websocket: connection });
-		this.sessionRepository.saveSession(userId, wsUser);
+		await this.sessionRepository.saveSession(userId, wsUser).then((ws) => {
+			console.log("Se guardo la session", ws.user.id);
+		});
 		connection.send(JSON.stringify({ message: `Conexión establecida, userId: ${user.id}`}));
 	}
 }
