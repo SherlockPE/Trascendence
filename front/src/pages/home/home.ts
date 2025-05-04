@@ -21,20 +21,6 @@ export class HomePage extends Component {
   protected initEvents(): void {
     if (!this.element) return;
 
-    // Crear y renderizar la navegación
-    const nav = new Navigation({
-      items: [
-        { text: 'Inicio', url: '#', active: true },
-        { text: 'Acerca de', url: '#about' },
-        { text: 'Chats', url: '#chat' },
-      ]
-    });
-    
-    const navContainer = this.element.querySelector('#navigation-container');
-    if (navContainer) {
-      navContainer.appendChild(nav.render());
-    }
-
     // Crear tarjetas con botones
     for (let i = 1; i <= 3; i++) {
       const button = new Button({
