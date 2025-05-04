@@ -24,9 +24,9 @@ async function handleRoute() {
     loadChatContainer();
   }
   switch (hash) {
-    case '#chat':
-      loadChatPage();
-      break;
+    case '#game':
+    case '#stats':
+    case '#prfile':
     default:
       loadHomePage();
       break;
@@ -54,22 +54,6 @@ function loadChatContainer() {
   mount(chatView, '#chat-container');
 }
 
-
-function loadChatPage() {
-  const navbar = new Navigation(
-    {
-      items: [
-        { text: 'Home', url: '#home' },
-        { text: 'Chat', url: '#chat',active: true }
-      ],
-    }
-  );
-
-  mount(navbar, '#header');
-    const chatPage = new ChatPage();
-  mount(chatPage, '#app');
-}
-
 function loadLoginPage() {
   const targetContainer:HTMLElement = document.querySelector('#header') as HTMLElement;
 	while (targetContainer.firstChild) {
@@ -84,7 +68,9 @@ function loadHomePage() {
     {
       items: [
         { text: 'Home', url: '#home', active: true },
-        { text: 'Chat', url: '#chat' }
+        { text: 'Game', url: '#game' },
+        { text: 'Stats', url: '#stats' },
+        { text: 'Profile', url: '#profile' }
       ],
     }
   );

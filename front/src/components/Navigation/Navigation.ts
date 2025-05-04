@@ -20,11 +20,11 @@ export class Navigation extends Component {
   private renderNavItems(): string {
     return this.props.items.map((item) => {
       const activeClass = item.active
-        ? 'text-white font-semibold'
-        : 'text-gray-300 hover:text-white transition-colors';
+        ? 'text-white text-sm font-medium'
+        : 'text-gray-300 text-sm font-ligth hover:text-white transition-colors';
 
-      const underline = item.active
-        ? `<span class="absolute left-0 -bottom-1 w-full h-0.5 bg-white"></span>`
+        const underline = item.active
+        ? `<span class="absolute left-1/2 -bottom-3 w-full h-0.5 bg-white" style="width: calc(100% + 2rem); transform: translateX(-50%);"></span>`
         : '';
 
       return `
@@ -39,11 +39,16 @@ export class Navigation extends Component {
   }
   renderTemplate(): string {
     return `
-      <nav class="w-full  text-white">
-        <ul class="flex justify-center space-x-10 py-4">
-          ${this.renderNavItems()}
-        </ul>
-      </nav>
+<nav class="w-full text-white flex justify-center">
+  <div class="relative inline-flex">
+    <ul class="flex justify-center space-x-16 pt-4">
+      ${this.renderNavItems()}
+    </ul>
+    <!-- Subrayado -->
+    <div class="absolute left-1/2 -bottom-3 h-0.5 bg-white opacity-15" style="width: calc(100% + 4rem); transform: translateX(-50%);"></div>
+  </div>
+</nav>
+
     `;
   }
   public update(newProps: Partial<NavigationProps> = {}): void {
