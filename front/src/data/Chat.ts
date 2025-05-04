@@ -1,35 +1,29 @@
+import Message from "./Message";
 
 
 export class Chat {
 	id: string;
+	active?: boolean;
 	titleGroup: string;
 	users: string[];
 	isGroupChat: boolean;
-	createdAt: Date;
-	updatedAt: Date;
-	messages: [{
-		chatId:string;
-		content: {
-			text: string;
-		};
-		sender_id: number;
-	}];
+	createdAt?: Date;
+	updatedAt?: Date;
+	messages: Message[];
+
+
 	constructor(
 		id: string,
+		active: boolean,
 		titleGroup: string,
 		users: string[],
 		isGroupChat: boolean,
 		createdAt: Date,
 		updatedAt: Date,
-		messages: [{
-			chatId: string;
-			content: {
-				text: string;
-			};
-			sender_id: number;
-		}]
+		messages: Message[]
 	) {
 		this.id = id;
+		this.active = active;
 		this.titleGroup = titleGroup;
 		this.users = users;
 		this.isGroupChat = isGroupChat;
