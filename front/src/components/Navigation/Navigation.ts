@@ -14,34 +14,43 @@ export class Navigation extends Component {
   constructor(props: NavigationProps) {
     super(props);
     this.props = props;
-    this.template = `<nav class="bg-gray-800 text-white">
-  <div class="container mx-auto px-4 py-2">
-    <ul class="flex space-x-4">
-      ${this.renderNavItems()}
-    </ul>
-  </div>
-</nav>`;
+    this.template = this.renderTemplate();
   }
 
   private renderNavItems(): string {
-    return this.props.items.map(item => {
-      const activeClass = item.active ? 'text-blue-300' : 'text-gray-300 hover:text-white';
-      return `<li><a href="${item.url}" class="${activeClass}">${item.text}</a></li>`;
+    return this.props.items.map((item) => {
+      const activeClass = item.active
+        ? 'text-white font-semibold'
+        : 'text-gray-300 hover:text-white transition-colors';
+
+      const underline = item.active
+        ? `<span class="absolute left-0 -bottom-1 w-full h-0.5 bg-white"></span>`
+        : '';
+
+      return `
+        <li class="relative">
+          <a href="${item.url}" class="relative pb-1 ${activeClass}">
+            ${item.text}
+            ${underline}
+          </a>
+        </li>
+      `;
     }).join('');
   }
-
+  renderTemplate(): string {
+    return `
+      <nav class="w-full  text-white">
+        <ul class="flex justify-center space-x-10 py-4">
+          ${this.renderNavItems()}
+        </ul>
+      </nav>
+    `;
+  }
   public update(newProps: Partial<NavigationProps> = {}): void {
     super.update(newProps);
-    
-    // Actualizar la plantilla con los nuevos items si se proporcionaron
     if (newProps.items) {
-      this.template = `<nav class="bg-gray-800 text-white">
-  <div class="container mx-auto px-4 py-2">
-    <ul class="flex space-x-4">
-      ${this.renderNavItems()}
-    </ul>
-  </div>
-</nav>`;
+      this.props = { ...this.props, ...newProps };
+      this.template = this.renderTemplate();
     }
   }
 }
