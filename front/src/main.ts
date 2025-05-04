@@ -11,12 +11,12 @@ window.addEventListener('DOMContentLoaded', handleRoute); // Ejecutar al cargar 
 async function handleRoute() {
   const hash = window.location.hash;
   const env = await fetch('/env').then(res => res.json());
-  if (env.env === 'prduction') {
+  if (env.env === 'production') {
     const isAuthenticated = await verifySession();
     if (!isAuthenticated && hash !== '#login') {
       loadLoginPage();
       return;
-    }  
+    }
   }
 
   const chatContainer: HTMLElement = document.querySelector('#chat-container') as HTMLElement;
@@ -53,6 +53,8 @@ function loadChatContainer() {
 
   mount(chatView, '#chat-container');
 }
+
+
 function loadChatPage() {
   const navbar = new Navigation(
     {

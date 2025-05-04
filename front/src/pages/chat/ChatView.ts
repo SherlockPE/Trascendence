@@ -95,7 +95,7 @@ export default class ChatView extends Component {
       ];
       let res: any;
       const env = await fetch("/env").then((res) => res.json());
-      if (env.env === "prduction") {
+      if (env.env === "production") {
         res = (await fetch("https://transcendence.42.fr/api/v1/chats/user/3", {
           method: "GET",
           credentials: "include",
