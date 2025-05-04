@@ -1,19 +1,28 @@
+import { FloatingChatComponent } from './components/Floating/FloatingChatComponent';
+import { Navigation } from './components/Navigation/Navigation';
 import { ChatPage } from './pages/chat/chat';
+import ChatView from './pages/chat/ChatView';
 import { HomePage } from './pages/home/home';
 import { LogInPage } from './pages/login/login';
 import { mount } from './utils/component';
-
 window.addEventListener('hashchange', handleRoute);
 window.addEventListener('DOMContentLoaded', handleRoute); // Ejecutar al cargar también
 
 async function handleRoute() {
   const hash = window.location.hash;
-  const isAuthenticated = await verifySession();
-  if (!isAuthenticated && hash !== '#login') {
-    loadLoginPage();
-    return;
+  const env = await fetch('/env').then(res => res.json());
+  if (env.env === 'prduction') {
+    const isAuthenticated = await verifySession();
+    if (!isAuthenticated && hash !== '#login') {
+      loadLoginPage();
+      return;
+    }  
   }
 
+  const chatContainer: HTMLElement = document.querySelector('#chat-container') as HTMLElement;
+  if (chatContainer.childElementCount === 0) {
+    loadChatContainer();
+  }
   switch (hash) {
     case '#chat':
       loadChatPage();
@@ -37,19 +46,50 @@ async function verifySession() {
     return false;
   }
 }
+
+function loadChatContainer() {
+
+  const chatView = new ChatView();
+
+  mount(chatView, '#chat-container');
+}
 function loadChatPage() {
-  const app = document.querySelector('#app');
-  const chatPage = new ChatPage();
+  const navbar = new Navigation(
+    {
+      items: [
+        { text: 'Home', url: '#home' },
+        { text: 'Chat', url: '#chat',active: true }
+      ],
+    }
+  );
+
+  mount(navbar, '#header');
+    const chatPage = new ChatPage();
   mount(chatPage, '#app');
 }
 
 function loadLoginPage() {
-  const app = document.querySelector('#app');
+  const targetContainer:HTMLElement = document.querySelector('#header') as HTMLElement;
+	while (targetContainer.firstChild) {
+    targetContainer.removeChild(targetContainer.firstChild);
+  }
   const loginPage = new LogInPage();
   mount(loginPage, '#app');
 }
 function loadHomePage() {
-  const app = document.querySelector('#app');
   const homePage = new HomePage();
-  mount(homePage, '#app');
+  const navbar = new Navigation(
+    {
+      items: [
+        { text: 'Home', url: '#home', active: true },
+        { text: 'Chat', url: '#chat' }
+      ],
+    }
+  );
+
+  mount(navbar, '#header');
+  const targetContainer:HTMLElement = document.querySelector('#app') as HTMLElement;
+	while (targetContainer.firstChild) {
+    targetContainer.removeChild(targetContainer.firstChild);
+  }
 }
