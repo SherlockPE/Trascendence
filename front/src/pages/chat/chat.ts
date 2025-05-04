@@ -1,5 +1,4 @@
 import { ChatItem } from "../../components/ChatItem/ChatItem";
-import { Navigation } from "../../components/Navigation/Navigation";
 import { Chat } from "../../data/Chat";
 import { Component } from "../../utils/component";
 
@@ -30,21 +29,6 @@ export class ChatPage extends Component {
 
   protected initEvents(): void {
     if (!this.element) return;
-
-    // Crear y renderizar la navegación
-    const nav = new Navigation({
-      items: [
-        { text: "Inicio", url: "#", active: true },
-        { text: "Acerca de", url: "#about" },
-        { text: "Chats", url: "#chat" },
-      ],
-    });
-
-    //Header
-    const navContainer = this.element.querySelector("#navigation-container");
-    if (navContainer) {
-      navContainer.appendChild(nav.render());
-    }
 
     //Inicializar WebSocket
     this.socket = new WebSocket(
