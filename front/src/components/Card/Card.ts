@@ -2,7 +2,7 @@ import { Component, ComponentProps } from '../../utils/component';
 
 interface CardProps extends ComponentProps {
   title: string;
-  content: string;
+  content?: string;
   footer?: Component;
 }
 
