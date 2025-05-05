@@ -1,10 +1,14 @@
-import { log } from "console";
 import SessionDto from "../../domain/dto/SessionDto";
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import SignUp from "../../application/use-cases/SignUp";
 import { FastifyJWTOptions } from "@fastify/jwt";
 import LogIn from "../../application/use-cases/LogIn";
 
+
+interface JwtBody {
+	user: string;
+	roles: string[];
+}
 
 export default class AuthController {
 	private logIn : LogIn;
@@ -23,7 +27,7 @@ export default class AuthController {
 			reply.status(401).send({ error: "Usuario o contraseña incorrectos" });
 			return;
 		}
-
+		
 		const jwt = this.fastify.jwt.sign({ user: auth.username, roles: ["view"] }, { expiresIn: "1h" });
 		reply.setCookie('token', jwt, {
 			httpOnly: true,
@@ -34,10 +38,10 @@ export default class AuthController {
 		}).send({jwt: jwt});
 	}
 
-	async verify(req: any, reply: FastifyReply) {
-		const decoded = await req.jwtVerify();
+	async getMe(req: any, reply: FastifyReply) {
+		const decoded: JwtBody = await req.jwtVerify();
 		console.log(decoded);
-		reply.send({ valid: true, user: decoded.user });
+		reply.send({ valid: true, user: decoded });
 	}
 	async initRegister(req: FastifyRequest<{Body:SessionDto}>, reply: FastifyReply) {
 		const auth: SessionDto = req.body;

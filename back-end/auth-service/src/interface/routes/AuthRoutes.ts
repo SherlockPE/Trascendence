@@ -39,7 +39,7 @@ export default async function authRoutes(fastify: FastifyJWTOptions & FastifyIns
     authController.initLogIn.bind(authController)
   );
 
-  fastify.get("/api/v1/auth/verify", {
+  fastify.get("/api/v1/auth/me", {
     preHandler: roleGuard(["view"]),
     schema: {
       response: {
@@ -47,7 +47,14 @@ export default async function authRoutes(fastify: FastifyJWTOptions & FastifyIns
           type: "object",
           properties: {
             valid: { type: "boolean" },
-            user: { type: "object" },
+            user: { 
+              type: "object",
+              properties: {
+                user: { type: "string" },
+                roles: { type: "array", items: { type: "string" } },
+              },
+              required: ["user", "roles"],
+             },
           },
           required: ["valid", "user"],
         },
@@ -61,7 +68,7 @@ export default async function authRoutes(fastify: FastifyJWTOptions & FastifyIns
         },
       ],
     },
-  }, authController.verify.bind(authController));
+  }, authController.getMe.bind(authController));
 
 
   fastify.post(
