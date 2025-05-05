@@ -11,6 +11,12 @@ export class LoadChatByUserId {
         return await this.chatRepository.getChatByMembers([userId]).then((chats) => {
             if (!chats)
                 throw new HandleException("Chat not found", 404, "Not Found");
+            chats.forEach((chat) => {
+                if (chat.isGroupChat){
+                    chat.title = chat.title || "Group Chat";
+                } else
+                    chat.title = chat.users.find((user) => user !== userId) || "Private Chat";
+            });
             return chats;
         });
     }

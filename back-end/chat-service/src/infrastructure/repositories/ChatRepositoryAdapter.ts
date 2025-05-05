@@ -33,14 +33,10 @@ export class ChatRepositoryAdapter implements ChatRepositoryPort {
         this.chatSingleton = ChatSingleton.getInstance();
     }
     
-    async saveMessage(chatId: string, message: string): Promise<void> {
-  
-        await this.chatSingleton.addMessageToChat(chatId, {
-            content: { text: message },
-            sendToUserId: "1", // Debes pasarlo dinámicamente
-            fromUserId: "2",  // Debes pasarlo dinámicamente
-            chatId
-        });
+    async saveMessage(chatId: string, message: Message): Promise<Message> {
+        await this.chatSingleton.addMessageToChat(chatId, message);
+        return message;
+        
     }
     async getChatById(chatId: string): Promise<Chat> {
         const chat = await this.chatSingleton.getChatById(chatId);
