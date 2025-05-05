@@ -4,7 +4,7 @@ import Message from "./Message";
 export class Chat {
 	id: string;
 	active?: boolean;
-	titleGroup: string;
+	title: string;
 	users: string[];
 	isGroupChat: boolean;
 	createdAt?: Date;
@@ -15,7 +15,7 @@ export class Chat {
 	constructor(
 		id: string,
 		active: boolean,
-		titleGroup: string,
+		title: string,
 		users: string[],
 		isGroupChat: boolean,
 		createdAt: Date,
@@ -24,7 +24,7 @@ export class Chat {
 	) {
 		this.id = id;
 		this.active = active;
-		this.titleGroup = titleGroup;
+		this.title = title;
 		this.users = users;
 		this.isGroupChat = isGroupChat;
 		this.createdAt = createdAt;

@@ -124,7 +124,7 @@ export class LogInPage extends Component {
       const data = await response.json();
       console.log("Inicio de sesión exitoso:", data);
       //Todo: Redirigir a la página de inicio o chat
-      window.location.hash = "#home";
+      window.location.hash = "";
     }
   }
 }

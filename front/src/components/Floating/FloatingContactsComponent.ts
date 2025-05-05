@@ -5,21 +5,27 @@ interface ItemChatProps extends ComponentProps {
 	name: string;
 	lastMessage: string;
 	avatar?: string;
-	online?: boolean;
+	isGroupChat?: boolean;
+	online?: boolean | null;
 	onClick: () => void;
 }
 
 class ChatItemComponent extends Component {
 	protected props: ItemChatProps;
-  constructor(props: ItemChatProps) {
+	constructor(props: ItemChatProps) {
 	super(props);
 	this.props = props;
 	this.template = this.renderTemplate();
   }
 
-  renderTemplate() {
-	const statusClass = this.props.online ? 'bg-green-500' : 'bg-red-500';
+  updateStatus(online: boolean) {
+	const itemStatus = this.element?.querySelector('#chat-item-status') as HTMLElement;
+	if (!itemStatus) return;
+	itemStatus.classList.toggle('bg-green-500', online);
+	itemStatus.classList.toggle('bg-red-500', !online);
+  }
 
+  renderTemplate() {
 	return `
 	<div class="flex justify-center w-full"> 
       <div class="flex w-full max-w-md overflow-hidden min-w-0 items-center space-x-3 py-3 px-4 hover:bg-white hover:bg-opacity-5 cursor-pointer">
@@ -33,7 +39,7 @@ class ChatItemComponent extends Component {
 		>${this.props.lastMessage}</p>
       </div>
       <div class="flex-shrink-0 self-center">
-        <div class="w-1.5 h-1.5 aspect-square rounded-full ${statusClass}"></div>
+        ${!this.props.isGroupChat ? `<div id="chat-item-status" class="w-1.5 h-1.5 aspect-square rounded-full "></div>`: ''}
       </div>
     </div></div>
 	`;
@@ -42,7 +48,7 @@ class ChatItemComponent extends Component {
 	protected initEvents(): void {
 		if (!this.element) return;
 		
-
+		this.updateStatus(this.props.online || false);
 		this.element.addEventListener("click", () => {
 			this.props.onClick();
 		});
@@ -61,6 +67,15 @@ export default class FloatingChatListComponent extends Component{
 	this.props = props;
 	this.template = this.renderTemplate();
   }
+  changeStatus(chatId: string, newStatus: boolean) {
+		const chatItem = this.element?.querySelector(`#chat-${chatId}`) as HTMLElement;
+		if (!chatItem) return;
+		const status = chatItem.querySelector('#chat-item-status') as HTMLElement;
+		if (!status) return; //Si es un chat grupal no hay status
+		status.classList.toggle('bg-green-500', newStatus);
+		status.classList.toggle('bg-red-500', !newStatus);
+
+	}
 
   renderTemplate() {
 	return `
@@ -101,11 +116,12 @@ export default class FloatingChatListComponent extends Component{
 		if (!this.element) return;
 		const chatList = this.element.querySelector('#chat-list') as HTMLElement;
 		const chatLength = this.props.chats?.length || 0;
-		this.props.chats?.forEach((chat, index) => {
+		this.props.chats?.forEach((chat:Chat, index) => {
 			const chatItem = new ChatItemComponent({
-				name: chat.titleGroup,//TODO: get name from user id
+				name: chat.title,
 				lastMessage: chat.messages[chat.messages.length - 1].content.text,
 				avatar: `/api/placeholder/40/40`,
+				isGroupChat: chat.isGroupChat,
 				online: true,
 				onClick: () => {
 					this.props.onClick?.(chat.id);

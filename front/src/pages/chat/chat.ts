@@ -82,7 +82,7 @@ export class ChatPage extends Component {
     chats.forEach((chat: Chat) => {
       // Determinar el título para mostrar
       const chatTitle = chat.isGroupChat
-        ? chat.titleGroup
+        ? chat.title
         : chat.users.filter((str: string) => str !== "3").join(", ");
 
       // Crear el componente ChatItem

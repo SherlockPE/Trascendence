@@ -1,5 +1,8 @@
+import { fetchUser } from './auth';
 import { FloatingChatComponent } from './components/Floating/FloatingChatComponent';
 import { Navigation } from './components/Navigation/Navigation';
+import { User } from './data/User';
+import { UserJwt } from './data/UserJwt';
 import { ChatPage } from './pages/chat/chat';
 import ChatView from './pages/chat/ChatView';
 import { HomePage } from './pages/home/home';
@@ -9,11 +12,16 @@ window.addEventListener('hashchange', handleRoute);
 window.addEventListener('DOMContentLoaded', handleRoute); // Ejecutar al cargar también
 
 async function handleRoute() {
+  let user: UserJwt | null = {
+    user: '3'
+  };
+  
   const hash = window.location.hash;
   const env = await fetch('/env').then(res => res.json());
   if (env.env === 'production') {
-    const isAuthenticated = await verifySession();
-    if (!isAuthenticated && hash !== '#login') {
+    user = await fetchUser();
+    console.log('user', user);
+    if (!user && hash !== '#login') {
       loadLoginPage();
       return;
     }
@@ -21,7 +29,7 @@ async function handleRoute() {
 
   const chatContainer: HTMLElement = document.querySelector('#chat-container') as HTMLElement;
   if (chatContainer.childElementCount === 0) {
-    loadChatContainer();
+    loadChatContainer(user?.user || '3');
   }
   switch (hash) {
     case '#game':
@@ -33,34 +41,25 @@ async function handleRoute() {
   }
 }
 
-async function verifySession() {
-  try {
-    const response = await fetch('https://transcendence.42.fr/api/v1/auth/verify', {
-      method: 'GET',
-      credentials: 'include',
-    });
+function loadChatContainer(userId: string) {
 
-    return response.ok;
-  } catch (error) {
-    console.error('Error verifying session:', error);
-    return false;
-  }
-}
-
-function loadChatContainer() {
-
-  const chatView = new ChatView();
+  const chatView = new ChatView(userId);
 
   mount(chatView, '#chat-container');
 }
 
 function loadLoginPage() {
-  const targetContainer:HTMLElement = document.querySelector('#header') as HTMLElement;
-	while (targetContainer.firstChild) {
-    targetContainer.removeChild(targetContainer.firstChild);
+  const headerContainer:HTMLElement = document.querySelector('#header') as HTMLElement;
+	while (headerContainer.firstChild) {
+    headerContainer.removeChild(headerContainer.firstChild);
+  }
+  const chatContainer:HTMLElement = document.querySelector('#chat-container') as HTMLElement;
+	while (chatContainer.firstChild) {
+    chatContainer.removeChild(chatContainer.firstChild);
   }
   const loginPage = new LogInPage();
   mount(loginPage, '#app');
+  
 }
 function loadHomePage() {
   const homePage = new HomePage();
