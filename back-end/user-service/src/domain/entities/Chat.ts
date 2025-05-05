@@ -6,7 +6,7 @@ export interface Chat {
 	users: string[];
 	messages: Message[];
 	isGroupChat: boolean;
-	titleGroup: string;
+	title: string;
 	//created_at: Date;
 	//updated_at: Date;
 	//owner: string;

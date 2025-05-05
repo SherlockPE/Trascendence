@@ -1,14 +1,10 @@
 
-interface Connect {
-	sender_id: string;
-	receiver_id: string;
-}
 
 export interface User {
     id: string;
     name: string;
 	passoword?: string;
-    contacts?: Connect[];
+    contacts?: string[];
 }
 
 
@@ -20,14 +16,7 @@ export const userDtoSchema = {
 	  name: { type: 'string' },
 	  contacts: {
 		type: 'array',
-		items: {
-		  type: 'object',
-		  required: ['sender_id', 'receiver_id'],
-		  properties: {
-			sender_id: { type: 'string' },
-			receiver_id: { type: 'string' },
-		  },
-		},
+		items: { type: 'string' },
 	  },
 	}
   };

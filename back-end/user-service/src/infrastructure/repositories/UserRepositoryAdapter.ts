@@ -1,6 +1,4 @@
 import { UserRepositoryPort } from "../../application/ports/UserRepositoryPort";
-import { Chat } from "../../domain/entities/Chat";
-import { Message } from "../../domain/entities/Message";
 import { User } from "../../domain/entities/User";
 import UserSingleton from "../db/UserSingleton";
 

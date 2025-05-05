@@ -1,4 +1,3 @@
-import { Chat } from "../../domain/entities/Chat";
 import { User } from "../../domain/entities/User";
 
 class UserSingleton  {
@@ -15,8 +14,8 @@ class UserSingleton  {
 					name: "User 1",
 					passoword: "$2a$12$N4H9M.e1h/bP.xxhvHXYu.hpCqOzcJqQBlH61MvDdW9yHdcTt7OOq",
 					contacts: [
-						{  sender_id: "1", receiver_id: "2" },
-						{  sender_id: "1", receiver_id: "3" }
+						"2",
+						"3"
 					],
 				},
 				{
@@ -24,8 +23,8 @@ class UserSingleton  {
 					name: "User 2",
 					passoword: "$2a$12$N4H9M.e1h/bP.xxhvHXYu.hpCqOzcJqQBlH61MvDdW9yHdcTt7OOq",
 					contacts: [
-						{ sender_id: "2", receiver_id: "1" },
-						{  sender_id: "2", receiver_id: "3" }
+						"1",
+						"3"
 					],
 				},
 				{
@@ -33,8 +32,8 @@ class UserSingleton  {
 					name: "User 3",
 					passoword: "$2a$12$N4H9M.e1h/bP.xxhvHXYu.hpCqOzcJqQBlH61MvDdW9yHdcTt7OOq",
 					contacts: [
-						{ sender_id: "3", receiver_id: "1" },
-						{  sender_id: "3", receiver_id: "2" }
+						"1",
+						"2"
 					],
 				}];
         }

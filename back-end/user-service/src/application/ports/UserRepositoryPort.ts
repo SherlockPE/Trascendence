@@ -1,5 +1,3 @@
-import { Chat } from "../../domain/entities/Chat";
-import { Message } from "../../domain/entities/Message";
 import { User } from "../../domain/entities/User";
 
 

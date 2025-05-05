@@ -20,6 +20,7 @@ export async function userRoutes(fastify: FastifyInstance) {
     const userController = new UserController(getUser, saveUser, updateUser,getAllUsers, getHashByUserId);
 
 	fastify.get("/api/v1/users/:userId/hash",{
+		
 		schema: {
 		  params: {
             type: 'object',
@@ -88,6 +89,6 @@ export async function userRoutes(fastify: FastifyInstance) {
 		},
 	  }, userController.updateUserHandler.bind(userController));
 
-	fastify.get("/api/v1/users",userController.getUsers.bind(userController))
+	fastify.get("/api/v1/users", userController.getUsers.bind(userController))
 	fastify.post("/api/v1/users",() => {});	
 }
