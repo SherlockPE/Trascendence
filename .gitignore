@@ -115,3 +115,15 @@ front/public/js/data/Chat.js
 front/public/js/data/Message.js
 front/public/js/pages/chat/ChatView.js
 front/public/css/tailwind.css
+front/dist/auth.d.ts
+front/dist/auth.js
+front/dist/auth.js.map
+front/dist/data/Connect.d.ts
+front/dist/data/Connect.js
+front/dist/data/Connect.js.map
+front/dist/data/User.d.ts
+front/dist/data/User.js
+front/dist/data/User.js.map
+front/dist/data/UserJwt.d.ts
+front/dist/data/UserJwt.js
+front/dist/data/UserJwt.js.map
