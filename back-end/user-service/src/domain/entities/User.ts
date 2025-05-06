@@ -3,6 +3,7 @@
 export interface User {
     id: string;
     name: string;
+	avatar?: string;
 	passoword?: string;
     contacts?: string[];
 }
@@ -13,6 +14,7 @@ export const userDtoSchema = {
 	required: ['id','name'],
 	properties: {
 	  id: { type: 'string' },
+	  avatar: { type: 'string' },
 	  name: { type: 'string' },
 	  contacts: {
 		type: 'array',

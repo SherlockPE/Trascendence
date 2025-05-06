@@ -55,7 +55,7 @@ class UserSingleton  {
 	 async addUser(user: User): Promise<void> {
 		this.users.push(user);
 	}
-	 async updateUser(userId: string, updatedUser: User): Promise<void> {
+	async updateUser(userId: string, updatedUser: User): Promise<void> {
 		const index = this.users.findIndex(user => user.id === userId);
 		if (index === -1) {
 			throw new Error(`User with id ${userId} not found`);

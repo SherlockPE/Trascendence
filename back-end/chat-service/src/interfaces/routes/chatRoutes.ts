@@ -15,7 +15,7 @@ export default async function chatRoutes(fastify: FastifyInstance, userRepositor
     const messageRepo = new ChatRepositoryAdapter();
 	const userRepository = new UserRepositoryAdapter(userRepositoryStore);
     const getMessages = new LoadMessage(messageRepo);
-    const getChatById = new LoadChatByUserId(messageRepo);
+    const getChatById = new LoadChatByUserId(messageRepo, userRepository);
 
     const getChat = new LoadChat(messageRepo);
     const chatController = new ChatController(getMessages, getChat, getChatById);

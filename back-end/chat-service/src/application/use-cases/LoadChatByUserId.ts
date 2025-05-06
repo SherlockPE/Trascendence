@@ -1,9 +1,10 @@
 import { ChatRepositoryPort } from "../ports/ChatRepositoryPort";
 import { Chat } from "../../domain/entities/Chat";
 import { HandleException } from "../../domain/exception/HandleException";
+import { UserRepositoryPort } from "../ports/UserRepositoryPort";
 
 export class LoadChatByUserId {
-    constructor(private chatRepository: ChatRepositoryPort) {}
+    constructor(private chatRepository: ChatRepositoryPort, private userRepository: UserRepositoryPort) {}
 
     async execute(jwtUserId: string, userId: string): Promise<Chat[]> {
         if (jwtUserId !== userId)
@@ -14,8 +15,14 @@ export class LoadChatByUserId {
             chats.forEach((chat) => {
                 if (chat.isGroupChat){
                     chat.title = chat.title || "Group Chat";
-                } else
-                    chat.title = chat.users.find((user) => user !== userId) || "Private Chat";
+                } else {
+                    const id = chat.users.find((user) => user !== userId);
+                    if (!id) throw new HandleException("Bad chat configuration, single user", 406, "Not Acceptable");
+                    this.userRepository.getUserById(id).then((user) => {
+                        if (!user) throw new HandleException("User not found", 404, "Not Found");
+                        chat.title = user.name || "Private Chat";
+                    });
+                }
             });
             return chats;
         });
