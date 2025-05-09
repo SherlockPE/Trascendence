@@ -1,3 +1,4 @@
+import { HandleException } from "../../domain/exception/HandleException";
 import { User } from "../../domain/entities/User";
 import { SessionRepositoryPort } from "../ports/SessionRepositoryPort";
 import { UserRepositoryPort } from "../ports/UserRepositoryPort";
@@ -9,26 +10,25 @@ export default class VerifyConnection {
 	constructor( userRepository: UserRepositoryPort, sessionRepository: SessionRepositoryPort) {
 		this.userRepository = userRepository;
 		this.sessionRepository = sessionRepository;
-
 	}
 	
 	async execute(connection:any, req:any) {
-		let { userId } = req.query;
-		if (!req.headers['x-user-id'] && !userId) {
-			console.log("No estas autorizado para conectarte, create una cuenta");
+        const decoded:{ user:string, roles: string[] } =  await req.jwtVerify();
+		let userId = decoded.user;
+		if (!decoded.user) {
 			connection.close();
-			throw Error("No se tiene permiso para la conexion");
+			throw new HandleException("El usuario no es correcto", 401, "Unauthorized");
 		}
-		userId = req.headers['x-user-id']? req.headers['x-user-id'] : userId;
-		console.log(userId);
 		const user:User | undefined = await this.userRepository.getUserById(userId);
 		if (!user) {
 			console.log("No estas autorizado para conectarte, create una cuenta");
 			connection.close();
-			throw Error("No se tiene permiso para la conexion");
+			throw new HandleException("No se tiene permiso para la conexion", 401, "Unauthorized");
 		}
 		const wsUser:WebSocketUser = ({ user: user, websocket: connection });
-		this.sessionRepository.saveSession(userId, wsUser);
+		await this.sessionRepository.saveSession(userId, wsUser).then((ws) => {
+			console.log("Se guardo la session", ws.user.id);
+		});
 		connection.send(JSON.stringify({ message: `Conexión establecida, userId: ${user.id}`}));
 	}
 }

@@ -7,7 +7,8 @@ export class LoadUser {
         this.userRepository = userRepository;
     }
 
-    async execute(userId: string): Promise<User> {
-        return this.userRepository.getUserById(userId);
+    async execute(userId: string): Promise<User> {        
+        const user: User = await this.userRepository.getUserById(userId);
+        return user;
     }
 }

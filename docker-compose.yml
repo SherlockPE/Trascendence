@@ -1,5 +1,6 @@
 
 services:
+
   user-service:
     build:
       context: ./back-end/user-service/
@@ -9,24 +10,61 @@ services:
       - "3010:3010"
     networks:
       - transcendence-net
+  nginx:
+    build:
+      context: ./back-end/nginx
+      dockerfile: Dockerfile
+    container_name: nginx
+    restart: always
+    env_file:
+      - ./.env
+    ports:
+      - "443:443"
+    depends_on:
+      chat-service:
+        condition: service_started
+    networks:
+      - transcendence-net
 
   chat-service:
     build:
       context: ./back-end/chat-service/
       dockerfile: Dockerfile
     container_name: chat-service
+    env_file:
+      - .env
     ports:
       - "3000:3000"
     networks:
       - transcendence-net
+    depends_on:
+      - auth-service
+
+  auth-service:
+    build:
+      context: ./back-end/auth-service/
+      dockerfile: Dockerfile
+    container_name: auth-service
+    ports:
+      - "3020:3020"
+    env_file:
+      - .env
+    networks:
+      - transcendence-net
+    depends_on:
+      - user-service
 
   front-end:
     build:
-      context: ./front-end/
+      context: ./front/
       dockerfile: Dockerfile
-    container_name: front-service
+    container_name: front-end
+    env_file:
+      - .env
+    volumes:
+      - front-end:/usr/src/app
     ports:
-      - "3030:3030"
+      - "3040:3040"
     networks:
       - transcendence-net
 
@@ -45,11 +83,12 @@ volumes:
       device: ./chat-service
       o: bind
   front-end:
+    name: front-end
     driver: local
     driver_opts:
       type: none
-      device: ./front-end
       o: bind
+      device: ./front-end
 
 
 networks:

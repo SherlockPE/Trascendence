@@ -51,7 +51,7 @@ fastify.register(swaggerUI, {
 fastify.register(cors, {
     origin: '*',
     methods: ['GET', 'POST'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
+	allowedHeaders: ['Content-Type', 'Authorization', 'Accept', 'Cookie', 'Set-Cookie'],
 });
 
 

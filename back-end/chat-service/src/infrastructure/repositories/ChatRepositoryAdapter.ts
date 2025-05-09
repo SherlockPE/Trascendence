@@ -29,14 +29,12 @@ export class ChatRepositoryAdapter implements ChatRepositoryPort {
     }
 
 
-    private async init() {
-        this.chatSingleton = await ChatSingleton.getInstance();
+    private init() {
+        this.chatSingleton = ChatSingleton.getInstance();
     }
     
     async saveMessage(chatId: string, message: string): Promise<void> {
-        if (!this.chatSingleton) {
-            this.chatSingleton = await ChatSingleton.getInstance();
-        }
+  
         await this.chatSingleton.addMessageToChat(chatId, {
             content: { text: message },
             sendToUserId: "1", // Debes pasarlo dinámicamente
@@ -45,9 +43,6 @@ export class ChatRepositoryAdapter implements ChatRepositoryPort {
         });
     }
     async getChatById(chatId: string): Promise<Chat> {
-        if (!this.chatSingleton) {
-            this.chatSingleton = await ChatSingleton.getInstance();
-        }
         const chat = await this.chatSingleton.getChatById(chatId);
         if (!chat) {
             throw new Error(`Chat with ID ${chatId} not found.`);

@@ -14,13 +14,15 @@ export class SessionRepositoryAdapter implements SessionRepositoryPort {
         this.init();
     }
     getSessionByUserId(sessionId: string): Promise<WebSocketUser> {
+        console.log('Verificando existencia de sesión:', sessionId);
         return this.sessionSingleton.getWSUserById(sessionId);
+        
     }
     getSessions(): Promise<WebSocketUser[]> {
         return this.sessionSingleton.getAllSession();
     }
-    saveSession(userId: any, wsUser: WebSocketUser): Promise<WebSocketUser> {
-        return this.sessionSingleton.addSession(userId, wsUser);
+    async saveSession(userId: any, wsUser: WebSocketUser): Promise<WebSocketUser> {
+        return await this.sessionSingleton.addSession(userId, wsUser);
     }
     deleteSessionById(sessionId: string): Promise<void> {
         this.sessionSingleton.deleteSessionByUserId(sessionId);

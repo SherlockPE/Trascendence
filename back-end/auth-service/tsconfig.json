@@ -1,13 +1,13 @@
 {
 	"compilerOptions": {
+	  "rootDir": ".",
 	  "baseUrl": ".", 
-	  "paths": {
-		"@user-service/*": ["../user-service/src/*"]
-	  },
 	  "outDir": "./dist",
-	  "types": ["node", "@fastify/websocket"],
+	  "types": ["node", "@fastify/websocket", "module"],
 	  "moduleResolution": "node",
-	  "esModuleInterop": true
-	}
+	  "esModuleInterop": true,
+	},
+	"include": ["src", "src/types", "test"]
+
   }
   
