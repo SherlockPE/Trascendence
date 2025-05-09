@@ -1,16 +1,16 @@
 import { fetchUser } from './auth';
 import { FloatingChatComponent } from './components/Floating/FloatingChatComponent';
 import { Navigation } from './components/Navigation/Navigation';
-import { User } from './data/User';
 import { UserJwt } from './data/UserJwt';
-import { ChatPage } from './pages/chat/chat';
 import ChatView from './pages/chat/ChatView';
 import { HomePage } from './pages/home/home';
 import { LogInPage } from './pages/login/login';
+import { StatsPage } from './pages/stats/StatsPage';
 import { mount } from './utils/component';
 window.addEventListener('hashchange', handleRoute);
 window.addEventListener('DOMContentLoaded', handleRoute); // Ejecutar al cargar también
 
+let navbar: Navigation | null = null;
 async function handleRoute() {
   let user: UserJwt | null = {
     user: '3'
@@ -31,21 +31,65 @@ async function handleRoute() {
   if (chatContainer.childElementCount === 0) {
     loadChatContainer(user?.user || '3');
   }
+
+  if (!navbar) {
+    navbar = new Navigation(
+      {
+        items: [
+          { text: 'Home', url: '#home', active: true },
+          { text: 'Game', url: '#game' },
+          { text: 'Stats', url: '#stats' },
+          { text: 'Profile', url: '#profile' }
+        ],
+      }
+    );
+    mount(navbar, '#header');
+  }
   switch (hash) {
     case '#game':
+      navbar.changeActiveItem('#game');
+      loadGamePage();
+      break;
     case '#stats':
-    case '#prfile':
+      navbar.changeActiveItem('#stats');
+      loadStatsPage()
+      break;
+    case '#profile':
+      navbar.changeActiveItem('#profile');
+      loadProfilePage();
+      break;
     default:
       loadHomePage();
+      navbar.changeActiveItem('#home');
       break;
   }
+
 }
 
+
+function loadStatsPage() {
+  const statsPage = new StatsPage();
+  mount(statsPage, '#app');
+}
+
+
+
 function loadChatContainer(userId: string) {
-
   const chatView = new ChatView(userId);
-
   mount(chatView, '#chat-container');
+}
+
+function loadProfilePage() {
+  const targetContainer:HTMLElement = document.querySelector('#app') as HTMLElement;
+	while (targetContainer.firstChild) {
+    targetContainer.removeChild(targetContainer.firstChild);
+  }
+}
+function loadGamePage() {
+  const targetContainer:HTMLElement = document.querySelector('#app') as HTMLElement;
+	while (targetContainer.firstChild) {
+    targetContainer.removeChild(targetContainer.firstChild);
+  }
 }
 
 function loadLoginPage() {
@@ -61,20 +105,8 @@ function loadLoginPage() {
   mount(loginPage, '#app');
   
 }
-function loadHomePage() {
-  const homePage = new HomePage();
-  const navbar = new Navigation(
-    {
-      items: [
-        { text: 'Home', url: '#home', active: true },
-        { text: 'Game', url: '#game' },
-        { text: 'Stats', url: '#stats' },
-        { text: 'Profile', url: '#profile' }
-      ],
-    }
-  );
 
-  mount(navbar, '#header');
+function loadHomePage() {
   const targetContainer:HTMLElement = document.querySelector('#app') as HTMLElement;
 	while (targetContainer.firstChild) {
     targetContainer.removeChild(targetContainer.firstChild);
