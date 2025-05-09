@@ -1,7 +1,6 @@
-
 interface Connect {
-	sender_id: string;
-	receiver_id: string;
+    sender_id: string;
+    receiver_id: string;
 }
 
 export interface User {
@@ -11,6 +10,11 @@ export interface User {
     contacts?: Connect[];
 }
 
+export interface UpdateUser {
+    alias?: string;
+    avatar_url?: string;
+    is_online?: boolean;
+}
 
 export const userDtoSchema = {
 	type: 'object',
@@ -31,4 +35,4 @@ export const userDtoSchema = {
 	  },
 	}
   };
-  
+
