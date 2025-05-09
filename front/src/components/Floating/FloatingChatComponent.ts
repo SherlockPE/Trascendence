@@ -73,7 +73,6 @@ export class FloatingChatComponent extends Component {
   constructor(props: FloatingChatProps) {
     super(props);
     this.props = props;
-    
     this.template = this.renderTemplate();
   }
 
@@ -82,7 +81,7 @@ export class FloatingChatComponent extends Component {
     if (status !== undefined) {
       this.props.onlineUser?.set(userId, newStatus);
     }
-	this.updateStatus();
+    this.updateStatus();
   }
 
   updateStatus() {

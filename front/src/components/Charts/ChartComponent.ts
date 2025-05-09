@@ -9,17 +9,12 @@ interface DataSeries {
 
 export class ChartComponent extends Component {
   protected props: any;
-  protected categories = ['01 Feb', '02 Feb', '03 Feb', '04 Feb', '05 Feb', '06 Feb'];
+  protected categories = ['01 Feb', '02 Feb', '03 Feb', '04 Feb', '05 Feb', '06 Feb', '07 Feb', '08 Feb', '09 Feb', '10 Feb'];
   protected series: DataSeries[] = [
 	{
-	  name: "Developer Edition",
-	  data: [150, 141, 145, 152, 135, 125],
-	  color: "#1A56DB",
-	},
-	{
 	  name: "Designer Edition",
-	  data: [43, 13, 65, 12, 42, 73],
-	  color: "#7E3BF2",
+	  data: [64, 44, 61, 45, 52, 25, 41, 12, 42, 73],
+	  color: "#FFFFFF",
 	},
   ];
   
@@ -39,9 +34,21 @@ export class ChartComponent extends Component {
 
   renderTemplate() {
 	return `
-  <div class="backdrop-blur-3xl bg-opacity-15 bg-[#1D1F2B]  p-4 max-w-3xl mx-auto">
-    <svg id="labels-chart" viewBox="0 0 700 300" class="w-fit h-72"></svg>
-  </div>
+
+	<div id="${this.props.id}" class="backdrop-blur-3xl bg-opacity-15 bg-[#1D1F2B] bottom-4 right-4  w-[38rem] h-[22rem]  border border-white border-opacity-15 rounded-2xl shadow-lg flex flex-col overflow-hidden z-50">
+	<!-- Header del chat -->	
+	<div id="${this.props.id}-header" class="relative flex justify-center items-center space-x-2 px-4 py-2 text-center text-white text-sm">
+	Games won per day
+	</div>
+		<!-- Divider -->
+		<hr id="${this.props.id}-divider"
+		 class="border-t border-white border-opacity-15" />
+
+		<!-- Aquí puedes agregar el contenido del chat -->
+		<div id="${this.props.id}-body" class=" flex-1 py-2 px-5 overflow-y-auto text-sm  space-y-2">
+		    <svg id="labels-chart" viewBox="0 0 700 300" class="w-full h-full"></svg>
+		</div>
+	</div>
 	`;
   }
   protected async initEvents(): Promise<void> {
@@ -99,7 +106,7 @@ scaleX(index: number): number {
 	  const areaPath = `${path} L${this.scaleX(serie.data.length - 1)},${this.chartHeight - this.margin.bottom} L${this.scaleX(0)},${this.chartHeight - this.margin.bottom} Z`;
   
 	  svg.innerHTML += `
-		<path d="${areaPath}" fill="${serie.color}33" stroke="none"></path>
+		<path d="${areaPath}" fill="${serie.color}15" stroke="none"></path>
 		<path d="${path}" fill="none" stroke="${serie.color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
 	  `;
 	});

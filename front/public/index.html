@@ -15,12 +15,35 @@
       transform-origin: center;
       z-index: -1;
     }
+    #app, #chat-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    #app {
+      z-index: 0;
+    }
+  
+    #chat-container {
+      z-index: 10; /* mayor que app */
+    }
+    #header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 20;
+    }
     </style>
 </head>
 <body class="bg-gray-100 min-h-screen" loading="auto" src="https://i.pinimg.com/736x/21/ee/66/21ee6682bec72f26cfe66cf252267647.jpg">
   <div id="header"></div>
-  <div id="app"></div>
+  <div id="app">
+  </div>
   <div id="chat-container"></div>
+
   <script src="/js/main.js" type="module"></script>
 </body>
 </html>
