@@ -1,0 +1,6 @@
+{
+  "devDependencies": {
+    "@fastify/websocket": "^11.0.2",
+    "@types/node": "^22.15.17"
+  }
+}

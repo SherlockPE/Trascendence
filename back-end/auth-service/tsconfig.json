@@ -1,6 +1,9 @@
 {
 	"compilerOptions": {
-	  "rootDir": "./src",
+	  "baseUrl": ".", 
+	  "paths": {
+		"@user-service/*": ["../user-service/src/*"]
+	  },
 	  "outDir": "./dist",
 	  "types": ["node", "@fastify/websocket"],
 	  "moduleResolution": "node",
