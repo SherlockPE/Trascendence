@@ -1,5 +1,4 @@
 
-
 export interface User {
     id: string;
     name: string;
@@ -8,6 +7,11 @@ export interface User {
     contacts?: string[];
 }
 
+export interface UpdateUser {
+    alias?: string;
+    avatar_url?: string;
+    is_online?: boolean;
+}
 
 export const userDtoSchema = {
 	type: 'object',
@@ -22,4 +26,4 @@ export const userDtoSchema = {
 	  },
 	}
   };
-  
+

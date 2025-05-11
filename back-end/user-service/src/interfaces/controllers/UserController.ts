@@ -1,4 +1,4 @@
-import { FastifyRequest, FastifyReply } from "fastify";
+/*import { FastifyRequest, FastifyReply } from "fastify";
 import { User } from "../../domain/entities/User";
 import { LoadUser } from "../../application/use-cases/LoadUser";
 import { UpdateUser } from "../../application/use-cases/UpdateUser";
@@ -66,7 +66,29 @@ export class UserController {
         }
     }
 
-    async postUser(req: FastifyRequest<{Body:NewUser}>, reply: FastifyReply) {
+    async postUser(req: FastifyRequest<{ Body: NewUser }>, reply: FastifyReply) {
+        try {
+            const newUser: NewUser = req.body;
+    
+            const userToSave: User = {
+                id: '', 
+                username: newUser.userName,
+                alias: '', 
+                email: newUser.email,
+                avatar_url: '',
+                contacts: [], 
+                is_online: false, 
+            };
+    
+            const savedUser = await this.saveUser.execute(userToSave);
+    
+            reply.code(201).send(savedUser);
+        } catch (error) {
+            console.error(error);
+            reply.status(500).send({ error: "Error al crear el usuario" });
+        
+        }
+     
 
     }
     async getUsers(req: FastifyRequest, reply: FastifyReply) {
@@ -89,3 +111,99 @@ export class UserController {
     }
 }
 
+*/
+
+import { FastifyRequest, FastifyReply } from "fastify";
+import { User, NewUser, UpdateUser } from "../../domain/entities/User";
+import { LoadUser } from "../../application/use-cases/LoadUser";
+import { UpdateUser as UpdateUserUseCase } from "../../application/use-cases/UpdateUser";
+import { AddUser } from "../../application/use-cases/AddUser";
+import { LoadUsers } from "../../application/use-cases/LoadUsers";
+
+interface UserParams {
+    userId: string;
+}
+
+export class UserController {
+    private getUser: LoadUser;
+    private saveUser: AddUser;
+    private updateUserUseCase: UpdateUserUseCase;
+    private getAllUsers: LoadUsers;
+
+    constructor(getUser: LoadUser, saveUser: AddUser, updateUserUseCase: UpdateUserUseCase, getAllUsers: LoadUsers) {
+        this.getUser = getUser;
+        this.saveUser = saveUser;
+        this.updateUserUseCase = updateUserUseCase;
+        this.getAllUsers = getAllUsers;
+    }
+
+    // GET /users/:userId
+    async getUserById(req: FastifyRequest<{ Params: UserParams }>, reply: FastifyReply) {
+        try {
+            const userId = req.params.userId;
+            const user = await this.getUser.execute(userId);
+            reply.send(user);
+        } catch (error) {
+            console.error(error);
+            reply.status(500).send({ error: "Error fetching user" });
+        }
+    }
+
+    // POST /users/register
+    async registerUser(req: FastifyRequest<{ Body: NewUser }>, reply: FastifyReply) {
+        try {
+            const newUser = req.body as NewUser;
+
+            const userToSave: User = {
+                id: "", // luego deberías generar el ID
+                username: newUser.username,
+                email: newUser.email,
+                contacts: [],
+                is_online: false,
+            };
+
+            const savedUser = await this.saveUser.execute(userToSave);
+
+            reply.code(201).send(savedUser);
+        } catch (error) {
+            console.error(error);
+            reply.status(500).send({ error: "Error creating user" });
+        }
+    }
+
+    // PUT /users/:userId
+    async updateUser(req: FastifyRequest<{ Params: UserParams; Body: UpdateUser }>, reply: FastifyReply) {
+        try {
+            const userId = req.params.userId;
+            const userUpdates = req.body as UpdateUser;
+            const updatedUser = await this.updateUserUseCase.execute(userId, userUpdates);
+            reply.send(updatedUser);
+        } catch (error) {
+            console.error(error);
+            reply.status(500).send({ error: "Error updating user" });
+        }
+    }
+
+    // GET /users
+    async listUsers(req: FastifyRequest, reply: FastifyReply) {
+        try {
+            const users = await this.getAllUsers.execute();
+            reply.send(users);
+        } catch (error) {
+            console.error(error);
+            reply.status(500).send({ error: "Error listing users" });
+        }
+    }
+
+    // DELETE /users/:userId (Opcional si quieres añadirlo después)
+    async deleteUser(req: FastifyRequest<{ Params: UserParams }>, reply: FastifyReply) {
+        try {
+            const userId = req.params.userId;
+            // Faltaría hacer un caso de uso DeleteUser
+            reply.code(204).send();
+        } catch (error) {
+            console.error(error);
+            reply.status(500).send({ error: "Error deleting user" });
+        }
+    }
+}
