@@ -79,20 +79,17 @@ export default class FloatingChatListComponent extends Component{
 
   renderTemplate() {
 	return `
-<div class="backdrop-blur-3xl bg-opacity-15 shadow-black shadow-xl bg-[#1D1F2B] bottom-4 right-4 w-[18rem] min-h-[33rem] border border-white border-opacity-15 rounded-2xl  flex flex-col overflow-hidden z-50">
+<div id="contacts" class="backdrop-blur-3xl bg-opacity-15 shadow-black shadow-xl bg-[#1D1F2B] bottom-4 right-4 w-[18rem] h-[33rem] border border-white border-opacity-15 rounded-2xl  flex flex-col overflow-hidden z-50">
   <!-- Encabezado -->
-  <div class="relative flex p-4 border-b border-white items-center border-opacity-10">
+  <div id="list-header" class="relative flex p-4 border-b border-white items-center border-opacity-10">
 		<div> 
 			<h2 class="text-white text-sm font-ligth">Mensajes</h2>
 
 		</div>
-		<div id="chat-close" class="absolute center right-2 cursor-pointer text-sm text-gray-400 hover:text-gray-200">
-			
-		</div>
   </div>
   
   <!-- Barra de búsqueda -->
-  <div class="px-5 py-3">
+  <div id="search-bar" class="px-5 py-3">
     <div class="relative">
       <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
         <svg class="h-4 w-4 text-gray-400 text-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -105,7 +102,7 @@ export default class FloatingChatListComponent extends Component{
   </div>
   
   <!-- Lista de mensajes -->
-  <div class="items-center px-5 pb-3"> 
+  <div id="contacts-content" class="items-center px-5 pb-3"> 
   <div id="chat-list" class="h-fit w-full overflow-y-auto mb-4 rounded-2xl bg-white bg-opacity-10">
 </div>
 </div>
@@ -134,5 +131,25 @@ export default class FloatingChatListComponent extends Component{
 				chatList.appendChild(hr);
 			}
 		});
+
+		const header = this.element?.querySelector(
+			`#list-header`
+		  ) as HTMLElement;
+		  if (!header) return;
+	  
+		  header.addEventListener("click", () => {
+			const chatItem = header.closest(`#contacts`) as HTMLElement;
+	  
+			if (!chatItem) return;
+	  
+			chatItem.classList.toggle("h-[33rem]");
+			chatItem.classList.toggle("h-fit");
+			chatItem
+			  .querySelector(`#search-bar`)
+			  ?.classList.toggle("hidden");
+			chatItem
+			  .querySelector(`#contacts-content`)
+			  ?.classList.toggle("hidden");
+		  });
 	}
 }
