@@ -133,3 +133,7 @@ front/dist/pages/stats/StatsPage.d.ts
 front/dist/pages/stats/StatsPage.js
 front/dist/pages/stats/StatsPage.js.map
 front/public/js/*
+user-managment/index.js
+user-managment/package.json
+user-managment/service.js
+user-managment/swagger_user_management_extended.yaml

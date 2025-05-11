@@ -6,13 +6,15 @@ import { Component } from "../../utils/component";
 export default class ChatView extends Component {
   private socket: WebSocket | undefined;
   private userId: string | undefined;
+  private currentAvatarUrl: string | undefined;
   private floatingChats: Map<string, FloatingChatComponent> = new Map();
   private chatMembers: Map<string, string[]> = new Map();
   private chats: Map<string, Chat> = new Map();
 
-  constructor(userId: string) {
+  constructor(userId: string, currentAvatarUrl: string) {
     super();
     this.userId = userId;
+    this.currentAvatarUrl = currentAvatarUrl;
     this.template = this.renderTemplate();
   }
 
@@ -78,22 +80,30 @@ export default class ChatView extends Component {
         {
           id: "1",
           active: true,
-          title: "Chat 3",
+          title: "Gym Bros",
+          avatarUrl: "",
           isGroupChat: true,
           users: ["1", "3", "2"],
           messages: [
-            { chatId: "3", content: { text: "Hola" }, sender_id: "2" },
+            {
+              chatId: "3",
+              content: { text: "Hola" },
+              sender_id: "2",
+              avatarUrl: "/images/jubin_jack.svg",
+            },
             {
               chatId: "3",
               content: { text: "Adrian! ¿Todavia estas en casa?" },
               sender_id: "3",
+              avatarUrl: "/images/henry_deco.svg",
             },
           ],
         },
         {
           id: "2",
           active: false,
-          title: "New Group",
+          title: "Devid Heilo",
+          avatarUrl: '/images/devid_heilo.svg',
           isGroupChat: false,
           users: ["1", "3"],
           messages: [
@@ -101,11 +111,14 @@ export default class ChatView extends Component {
               chatId: "2",
               content: { text: "Hola, ¿cómo estás?" },
               sender_id: "1",
+              avatarUrl: "/images/devid_heilo.svg",
             },
             {
               chatId: "2",
               content: { text: "Bien, desarrollando un proyecto, tu?" },
               sender_id: "3",
+              avatarUrl: "/images/henry_deco.svg",
+
             },
           ],
         },
@@ -133,29 +146,9 @@ export default class ChatView extends Component {
               chats[i].users.forEach((userId) => {
                 onlineUsers.set(userId, userId === this.userId);
               });
-              const chatItemComponent = new FloatingChatComponent({
-                id: "chat-" + chats[i].id,
-                onLine: false,
-                title: "Chat",
-                messages: chats[i].messages,
-                currentUser: this.userId,
-                onlineUser: onlineUsers,
-                onExit: () => {
-                  this.socket?.send(
-                    JSON.stringify({
-                      sender_id: this.userId,
-                      chatId: chats[i].id,
-                      status: "close",
-                    })
-                  );
-                  this.floatingChats.delete(chats[i].id);
-                  this.chatMembers.delete(chats[i].id);
-                  this.chats.delete(chats[i].id);
-                },
-                onSendMessage: (message: string) => {
-                  this.sendMessage(chats[i].id, message);
-                },
-              });
+
+              const chatItemComponent = this.buildChat(onlineUsers, chats[i]);
+
               chatContainer.appendChild(chatItemComponent.render());
               this.floatingChats.set(chats[i].id, chatItemComponent);
               this.chatMembers.set(chats[i].id, chats[i].users);
@@ -180,29 +173,8 @@ export default class ChatView extends Component {
             chatItem.users.forEach((userId) => {
               onlineUsers.set(userId, userId=== this.userId);
             });
-            const chatItemComponent = new FloatingChatComponent({
-              id: "chat-" + chatItem.id,
-              onLine: false,
-              title: chatItem?.title,
-              messages: chatItem?.messages,
-              owner: this.userId,
-              onlineUser: onlineUsers,
-              onExit: () => {
-                this.socket?.send(
-                  JSON.stringify({
-                    sender_id: this.userId,
-                    chatId: chatItem.id,
-                    status: "close",
-                  })
-                );
-                this.floatingChats.delete(chatItem.id);
-                this.chatMembers.delete(chatItem.id);
-                this.chats.delete(chatItem.id);
-              },
-              onSendMessage: (message: string) => {
-                this.sendMessage(chatItem.id, message);
-              },
-            });
+            const chatItemComponent = this.buildChat(onlineUsers, chatItem);
+
             const chatContainer = this.element?.querySelector("#chats-floating") as HTMLElement;
             chatContainer.appendChild(chatItemComponent.render());
             this.floatingChats.set(chatItem.id, chatItemComponent);
@@ -217,6 +189,33 @@ export default class ChatView extends Component {
     }
   }
 
+  private buildChat(onlineUsers:any, chatItem: Chat): FloatingChatComponent {
+    return  new FloatingChatComponent({
+      id: "chat-" + chatItem.id,
+      onLine: false,
+      title: chatItem?.title,
+      messages: chatItem?.messages,
+      avatarUrl: chatItem?.avatarUrl,
+      currentUserAvatar: this.currentAvatarUrl,
+      currentUser: this.userId,
+      onlineUser: onlineUsers,
+      onExit: () => {
+        this.socket?.send(
+          JSON.stringify({
+            sender_id: this.userId,
+            chatId: chatItem.id,
+            status: "close",
+          })
+        );
+        this.floatingChats.delete(chatItem.id);
+        this.chatMembers.delete(chatItem.id);
+        this.chats.delete(chatItem.id);
+      },
+      onSendMessage: (message: string) => {
+        this.sendMessage(chatItem.id, message);
+      },
+    });
+  }
   private sendMessage(chatId: string, message: string) {
     if (this.element === null) return;
     if (!this.socket) return;

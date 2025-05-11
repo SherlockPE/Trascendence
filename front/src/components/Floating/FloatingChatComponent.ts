@@ -62,6 +62,8 @@ interface FloatingChatProps extends ComponentProps {
   title: string;
   messages?: Message[];
   currentUser?: string;
+  currentUserAvatar?: string;
+  chatAvatar?: string;
   isGroup?: boolean;
   onlineUser?: Map<string, boolean>;
   onExit: () => void;
@@ -106,7 +108,7 @@ export class FloatingChatComponent extends Component {
 	<div id="${this.props.id}-header" class="relative flex items-center space-x-2 px-4 py-2  text-white">
 		<div id="${this.props.id}-avatar">
 			<!-- Aquí puedes poner una imagen o ícono -->
-			<img src="avatar.png" alt="Avatar" class="w-7 h-7 rounded-full" />
+			<img src="${this.props.chatAvatar}" alt="Avatar" class="w-7 h-7 rounded-full" />
 		</div>
 		
 		<div>
@@ -173,7 +175,7 @@ export class FloatingChatComponent extends Component {
         const messageComponent = new MessageComponent({
           text: message.content.text,
           currentUser: message.sender_id === this.props.currentUser, // Cambia esto según la lógica de tu aplicación
-          avatar: "https://via.placeholder.com/40",
+          avatar: message.avatarUrl || "https://via.placeholder.com/40",
         });
         content.appendChild(messageComponent.render());
         count--;
@@ -186,7 +188,7 @@ export class FloatingChatComponent extends Component {
         const messageComponent = new MessageComponent({
           text: input.value,
           currentUser: true, // Cambia esto según la lógica de tu aplicación
-          avatar: "https://via.placeholder.com/40",
+          avatar: this.props.currentUserAvatar || "https://via.placeholder.com/40",
         });
         this.element
           ?.querySelector(`#${this.props.id}-body`)

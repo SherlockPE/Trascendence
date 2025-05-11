@@ -29,7 +29,7 @@ async function handleRoute() {
 
   const chatContainer: HTMLElement = document.querySelector('#chat-container') as HTMLElement;
   if (chatContainer.childElementCount === 0) {
-    loadChatContainer(user?.user || '3');
+    loadChatContainer(user?.user || '3', '/images/henry_deco.svg');
   }
 
   if (!navbar) {
@@ -74,8 +74,8 @@ function loadStatsPage() {
 
 
 
-function loadChatContainer(userId: string) {
-  const chatView = new ChatView(userId);
+function loadChatContainer(userId: string, avatarUrl: string) {
+  const chatView = new ChatView(userId, avatarUrl);
   mount(chatView, '#chat-container');
 }
 

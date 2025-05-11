@@ -5,6 +5,7 @@ export class Chat {
 	id: string;
 	active?: boolean;
 	title: string;
+	avatarUrl?: string;
 	users: string[];
 	isGroupChat: boolean;
 	createdAt?: Date;

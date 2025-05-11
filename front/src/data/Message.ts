@@ -5,6 +5,7 @@
 	content: {
 		text: string;
 	};
+	avatarUrl?:string;
 	sender_id: string;
 
 	constructor(

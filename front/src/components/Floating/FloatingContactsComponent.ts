@@ -120,7 +120,7 @@ export default class FloatingChatListComponent extends Component{
 			const chatItem = new ChatItemComponent({
 				name: chat.title,
 				lastMessage: chat.messages[chat.messages.length - 1].content.text,
-				avatar: `/api/placeholder/40/40`,
+				avatar: chat.avatarUrl || '',
 				isGroupChat: chat.isGroupChat,
 				online: true,
 				onClick: () => {
