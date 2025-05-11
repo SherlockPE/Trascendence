@@ -30,16 +30,7 @@ export class HomePage extends Component {
         }
       });
       
-      const card = new Card({
-        title: `Tarjeta ${i}`,
-        content: `Este es el contenido de la tarjeta número ${i}.`,
-        footer: button
-      });
-      
-      const cardContainer = this.element.querySelector(`#card-${i}`);
-      if (cardContainer) {
-        cardContainer.appendChild(card.render());
-      }
+
     }
   }
 }
