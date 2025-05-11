@@ -1,7 +1,6 @@
 .env
 node_modules
 package-lock.json
-.env
 back-end/auth-service/docs/.nojekyll
 back-end/auth-service/docs/hierarchy.html
 back-end/auth-service/docs/index.html
@@ -48,7 +47,6 @@ back-end/auth-service/docs/modules/interface_routes_AuthRoutes.html
 back-end/auth-service/docs/modules/server.html
 back-end/auth-service/docs/variables/domain_dto_SessionDto.sessionDtoSchema.html
 back-end/auth-service/docs/variables/domain_dto_User.userDtoSchema.html
-.env
 front/dist/main.d.ts
 front/dist/main.js
 front/dist/main.js.map
@@ -81,7 +79,6 @@ front/public/js/pages/chat/chat.js
 front/public/js/pages/home/home.js
 front/public/js/pages/login/login.js
 front/public/js/utils/component.js
-.env
 front/dist/components/ChatItem/ChatItem.d.ts
 front/dist/components/ChatItem/ChatItem.js
 front/dist/components/ChatItem/ChatItem.js.map
