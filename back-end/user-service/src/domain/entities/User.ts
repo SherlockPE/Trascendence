@@ -1,33 +1,29 @@
 
-interface Connect {
-	sender_id: string;
-	receiver_id: string;
-}
-
 export interface User {
     id: string;
     name: string;
-    contacts: Connect[];
+	avatar?: string;
+	passoword?: string;
+    contacts?: string[];
 }
 
+export interface UpdateUser {
+    alias?: string;
+    avatar_url?: string;
+    is_online?: boolean;
+}
 
 export const userDtoSchema = {
 	type: 'object',
-	required: ['id','name', 'contacts'],
+	required: ['id','name'],
 	properties: {
 	  id: { type: 'string' },
+	  avatar: { type: 'string' },
 	  name: { type: 'string' },
 	  contacts: {
 		type: 'array',
-		items: {
-		  type: 'object',
-		  required: ['sender_id', 'receiver_id'],
-		  properties: {
-			sender_id: { type: 'string' },
-			receiver_id: { type: 'string' },
-		  },
-		},
+		items: { type: 'string' },
 	  },
 	}
   };
-  
+

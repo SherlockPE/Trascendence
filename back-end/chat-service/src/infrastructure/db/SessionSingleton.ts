@@ -1,8 +1,9 @@
+import { HandleException } from "../../domain/exception/HandleException";
 import { WebSocketUser } from "../../application/use-cases/ListenMessage";
 
 class SessionSingleton  {
 	private static instance: SessionSingleton = null;
-	private sessions: Map<string, WebSocketUser> = new Map();
+	private sessions: Map<string, WebSocketUser> = new Map<string, WebSocketUser>();
 
 	private constructor() {}
 
@@ -13,8 +14,7 @@ class SessionSingleton  {
 		return this.instance;
 	}
 	public async addSession(userId: string, wsUser: WebSocketUser): Promise<WebSocketUser> {
-		this.sessions.set(userId, wsUser);
-		console.log("Session UserId: "+ this.sessions.get(userId).user.id);
+		this.sessions.set(wsUser.user.id, wsUser);
 		return wsUser;
 	}
 
@@ -22,11 +22,10 @@ class SessionSingleton  {
 		this.sessions.delete(userId);
 		return ;
 	}
+
 	public async getWSUserById(userId: string): Promise<WebSocketUser> {
-		const wsUser:WebSocketUser = this.sessions.get(userId);
-		if (wsUser)
-			return wsUser;
-		throw Error("No existe el usuario "+userId+" en la conexion");
+		const wsUser: WebSocketUser = this.sessions.get(userId);
+		return wsUser;
 	}
 
 	 async getAllSession(): Promise<WebSocketUser[]> {

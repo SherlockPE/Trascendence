@@ -1,52 +1,51 @@
-import { log } from "console";
-import LogIn from "../../application/use-cases/login";
 import SessionDto from "../../domain/dto/SessionDto";
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
-import Register from "../../application/use-cases/SignUp";
 import SignUp from "../../application/use-cases/SignUp";
 import { FastifyJWTOptions } from "@fastify/jwt";
+import LogIn from "../../application/use-cases/LogIn";
 
+
+interface JwtBody {
+	user: string;
+	roles: string[];
+}
 
 export default class AuthController {
 	private logIn : LogIn;
 	private register : SignUp;
-	private fastify: FastifyJWTOptions & FastifyInstance;
-	constructor(logIn: LogIn, fastify: FastifyJWTOptions & FastifyInstance, register: SignUp) {
+	private fastify: FastifyInstance;
+	constructor(logIn: LogIn, fastify: FastifyInstance, register: SignUp) {
 		this.logIn = logIn;
 		this.register= register;
 		this.fastify = fastify;
 	}
 
-async initLogIn(req: FastifyRequest<{ Body: SessionDto }>, reply: FastifyReply) {
-	try {
-		log(req.body);
+	async initLogIn(req: FastifyRequest<{ Body: SessionDto }>, reply: FastifyReply) {
 		const auth: SessionDto = req.body as SessionDto;
-		const result = await this.logIn.execute(auth);
+		const result = await this.logIn.execute(this.fastify, auth);
+		if (result === null) {
+			reply.status(401).send({ error: "Usuario o contraseña incorrectos" });
+			return;
+		}
 		
 		const jwt = this.fastify.jwt.sign({ user: auth.username, roles: ["view"] }, { expiresIn: "1h" });
-		reply.send({jwt: jwt});
-	} catch (err) {
-		log(err);
-		reply.status(500).send({ error: "Error al obtener mensajes" });
+		reply.setCookie('token', jwt, {
+			httpOnly: true,
+			secure: false, // Set to true in production
+			sameSite: 'lax',
+			path: '/',
+			maxAge: 3600, // 1 hour in seconds
+		}).send({jwt: jwt});
 	}
-}
 
-	async verify(req: any, reply: FastifyReply) {
-		try {
-			const decoded = await req.jwtVerify();
-			console.log(decoded);
-			reply.send({ valid: true, user: decoded.user });
-		} catch (error) {
-			reply.status(401).send({ message: "Unauthorized" });
-		}
+	async getMe(req: any, reply: FastifyReply) {
+		const decoded: JwtBody = await req.jwtVerify();
+		console.log(decoded);
+		reply.send({ valid: true, user: decoded });
 	}
-	async initRegister(req: FastifyRequest, reply: FastifyReply) {
-		try {
-			const auth: SessionDto = JSON.parse(req.body.toString());
-			const result = await this.register.execute(auth);
-			reply.send(result);
-		} catch (err) {
-			reply.status(500).send({ error: "Error al obtener mensajes" });
-		}
+	async initRegister(req: FastifyRequest<{Body:SessionDto}>, reply: FastifyReply) {
+		const auth: SessionDto = req.body;
+		const result = await this.register.execute(this.fastify, auth);
+		reply.send(result);
 	}
 }

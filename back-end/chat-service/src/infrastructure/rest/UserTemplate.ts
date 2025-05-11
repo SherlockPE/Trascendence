@@ -1,7 +1,8 @@
 import { User } from "../../domain/entities/User";
+import UserRepositoryStore from "./UserRepositoryStore";
 
-class UserTemplate  {
-	private url = "http://user-service:3010/api/v1/users";
+class UserTemplate implements UserRepositoryStore {
+	private url = process.env.URI_USER_SERVICE || "http://localhost:3010/api/v1/users";
 
     public constructor() {} // Evita instanciar directamente
 
@@ -10,10 +11,7 @@ class UserTemplate  {
 		if (!chat) {
 			throw new Error(`Chat with id ${userId} not found`);
 		}
-		console.log("user:" + chat.body);
 		const user:User = await chat.json();
-		console.log("user:" + user.id);
-
 		return user as unknown as User;
 	}
 

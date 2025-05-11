@@ -1,7 +1,9 @@
+import { HandleException } from "../../domain/exception/HandleException";
 import SessionDto from "../../domain/dto/SessionDto";
 import { UserDto } from "../../domain/dto/User";
 import { User } from "../../domain/entities/User";
 import UserRepositoryPort from "../ports/UserRepositoryPort";
+import { FastifyInstance } from "fastify";
 
 
 export default class SignUp {
@@ -9,18 +11,18 @@ export default class SignUp {
 	constructor(userRepositoryPort: UserRepositoryPort) {
 		this.userRepositoryPort = userRepositoryPort;
 	}
-	
-	async execute(newUser: SessionDto): Promise<UserDto> {
-		const user:User = await this.userRepositoryPort.getUserById(newUser.username);
+
+	async execute(fastify: FastifyInstance, newUser: SessionDto): Promise<UserDto> {
+
+		const user = await this.userRepositoryPort.getUserById(newUser.username);
 		if (user == null)
 		{
-			//TODO creo con BCrypt para la password
-			newUser.password; 
-			
-			const userRegistered:User = await this.userRepositoryPort.saveUser({
-				id:newUser.username,
-				name:newUser.name,
-				password: newUser.password,
+			const hashedPsw = await fastify.bcrypt.hash(newUser.password);
+
+			const userRegistered:UserDto = await this.userRepositoryPort.saveUser({
+				id: newUser.username,
+				name: newUser.name,
+				password: hashedPsw,
 				contacts: []
 			});
 			//TODO: notificar por sendEmail(); la validacion de email
@@ -29,7 +31,8 @@ export default class SignUp {
 			return userRegistered;
 		} else {
 			//En caso de que no exista devolver un error especifico para 400
-			throw Error("No existe el usuario");
+			console.log("Ya existe el usuario");
+			throw new HandleException("User already exists", 400, "Bad Request");
 		}
 	}
 }

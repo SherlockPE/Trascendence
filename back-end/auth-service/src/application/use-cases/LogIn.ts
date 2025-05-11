@@ -1,24 +1,31 @@
 import SessionDto from "../../domain/dto/SessionDto";
-import { User } from "../../domain/entities/User";
 import UserRepositoryPort from "../ports/UserRepositoryPort";
-
+import { FastifyInstance } from "fastify";
+import { HandleException } from "../../domain/exception/HandleException";
 
 export default class LogIn {
 	private userRepositoryPort: UserRepositoryPort;
 	constructor(userRepositoryPort: UserRepositoryPort) {
 		this.userRepositoryPort = userRepositoryPort;
 	}
-	
-	async execute(session: SessionDto): Promise<{jwt: string;}> {
-		const user:User = await this.userRepositoryPort.getUserById(session.username);
-		if (user != null)
+	/**
+	 * @author Adrian Herrera
+	 * @description Executes the login process by verifying the user's credentials.
+	 * @param fastify Fastify instance
+	 * @param session SessionDto object containing username and password
+	 * @returns JWT token if login is successful
+	 * @throws HandleException if login fails
+	 */
+	async execute(fastify: FastifyInstance, session: SessionDto): Promise<{jwt: string;}> {
+		const hash:string = await this.userRepositoryPort.getHashById(session.username);
+		if (hash != null)
 		{
-			//TODO validar con BCrypt la contraseña
-			session.password; 
+			const isMatch = await fastify.bcrypt.compare(session.password, hash);
+			if (!isMatch)
+				throw new HandleException("Password not match", 401, "Unauthorized");
 			return {jwt:"JWT"}
 		} else {
-			//En caso de que no exista devolver un error especifico para 400
-			throw Error("No existe el usuario");
+			throw new HandleException("User not found", 401, "Unauthorized");
 		}
 	}
 }

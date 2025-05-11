@@ -1,4 +1,3 @@
-import LogIn from "../../application/use-cases/login";
 import { FastifyInstance } from "fastify";
 import AuthController from "../controller/AuthController";
 import UserRepositoryPort from "../../application/ports/UserRepositoryPort";
@@ -7,10 +6,13 @@ import { sessionDtoSchema } from "../../domain/dto/SessionDto";
 import SignUp from "../../application/use-cases/SignUp";
 import { FastifyJWTOptions } from "@fastify/jwt";
 import roleGuard from "../guards/RoleGuard";
+import LogIn from "../../application/use-cases/LogIn";
+import { userDtoSchema } from "../../domain/dto/User";
+import { UserRepository } from "../../infrastructure/rest/UserRepository";
 
 
-export default function authRoutes(fastify: FastifyJWTOptions & FastifyInstance) {
-  const userRepositoryPort: UserRepositoryPort = new UserRepositoryAdapter();
+export default async function authRoutes(fastify: FastifyJWTOptions & FastifyInstance, userRepository: UserRepository) {
+  const userRepositoryPort: UserRepositoryPort = new UserRepositoryAdapter(userRepository);
   const logIn: LogIn = new LogIn(userRepositoryPort);
   const signUp: SignUp = new SignUp(userRepositoryPort);
   const authController: AuthController = new AuthController(logIn, fastify, signUp);
@@ -37,7 +39,7 @@ export default function authRoutes(fastify: FastifyJWTOptions & FastifyInstance)
     authController.initLogIn.bind(authController)
   );
 
-  fastify.get("/api/v1/auth/verify", {
+  fastify.get("/api/v1/auth/me", {
     preHandler: roleGuard(["view"]),
     schema: {
       response: {
@@ -45,7 +47,14 @@ export default function authRoutes(fastify: FastifyJWTOptions & FastifyInstance)
           type: "object",
           properties: {
             valid: { type: "boolean" },
-            user: { type: "object" },
+            user: { 
+              type: "object",
+              properties: {
+                user: { type: "string" },
+                roles: { type: "array", items: { type: "string" } },
+              },
+              required: ["user", "roles"],
+             },
           },
           required: ["valid", "user"],
         },
@@ -59,11 +68,7 @@ export default function authRoutes(fastify: FastifyJWTOptions & FastifyInstance)
         },
       ],
     },
-  }, authController.verify.bind(authController));
-
-
-
-
+  }, authController.getMe.bind(authController));
 
 
   fastify.post(
@@ -72,16 +77,10 @@ export default function authRoutes(fastify: FastifyJWTOptions & FastifyInstance)
       schema: {
         body: sessionDtoSchema,
         response: {
-          200: {
-            type: "object",
-            properties: {
-              jwt: { type: "string" },
-            },
-            required: ["jwt"],
-          },
+          200: userDtoSchema,
         },
         summary: "Login user",
-        description: "Login user with username and password",
+        description: "SignUp user with username and password",
         tags: ["auth"],
       },
     },
