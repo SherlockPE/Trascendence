@@ -34,19 +34,19 @@ export class ChartComponent extends Component {
 
   renderTemplate() {
 	return `
+	<div id="${this.props.id}" class="backdrop-blur-3xl bg-opacity-15 bg-[#1D1F2B] w-[38rem] h-[22rem] border border-white border-opacity-15 rounded-2xl shadow-lg flex flex-col overflow-hidden xl:col-span-1 justify-center items-center">
+		<!-- Header del chat -->	
+		<div id="${this.props.id}-header" class="relative flex justify-center items-center space-x-2 px-4 py-2 text-center text-white text-sm">
+		Games won per day
+		</div>
 
-	<div id="${this.props.id}" class="backdrop-blur-3xl bg-opacity-15 bg-[#1D1F2B] bottom-4 right-4  w-[38rem] h-[22rem]  border border-white border-opacity-15 rounded-2xl shadow-lg flex flex-col overflow-hidden z-50">
-	<!-- Header del chat -->	
-	<div id="${this.props.id}-header" class="relative flex justify-center items-center space-x-2 px-4 py-2 text-center text-white text-sm">
-	Games won per day
-	</div>
 		<!-- Divider -->
 		<hr id="${this.props.id}-divider"
-		 class="border-t border-white border-opacity-15" />
+			class="w-full border-t border-white border-opacity-15" />
 
 		<!-- Aquí puedes agregar el contenido del chat -->
 		<div id="${this.props.id}-body" class=" flex-1 py-2 px-5 overflow-y-auto text-sm  space-y-2">
-		    <svg id="labels-chart" viewBox="0 0 700 300" class="w-full h-full"></svg>
+			<svg id="labels-chart" viewBox="0 0 700 300" class="w-full h-full"></svg>
 		</div>
 	</div>
 	`;
@@ -106,8 +106,14 @@ scaleX(index: number): number {
 	  const areaPath = `${path} L${this.scaleX(serie.data.length - 1)},${this.chartHeight - this.margin.bottom} L${this.scaleX(0)},${this.chartHeight - this.margin.bottom} Z`;
   
 	  svg.innerHTML += `
-		<path d="${areaPath}" fill="${serie.color}15" stroke="none"></path>
-		<path d="${path}" fill="none" stroke="${serie.color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+		<defs>
+			<linearGradient id="gradient-${serie.color}" x1="0" y1="0" x2="0" y2="1">
+			<stop offset="0%" stop-color="${serie.color}" stop-opacity="0.07"/>
+			<stop offset="100%" stop-color="${serie.color}" stop-opacity="0"/>
+			</linearGradient>
+		</defs>
+		<path d="${areaPath}" fill="url(#gradient-${serie.color})" stroke="none"></path>
+		<path d="${path}" fill="none" stroke="${serie.color}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path>
 	  `;
 	});
   }
