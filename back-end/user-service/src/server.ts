@@ -6,9 +6,31 @@ import { userRoutes } from "./interfaces/routes/userRoutes";
 
 import fastifySwagger from '@fastify/swagger';
 import swaggerUI from '@fastify/swagger-ui';
+import { error } from "console";
+import { FastifyRequest } from "fastify/types/request";
+import { FastifyReply } from "fastify/types/reply";
+import { HandleException } from "./domain/exception/HandleException";
 
 
 const fastify: FastifyInstance = Fastify({logger: true});
+
+fastify.setErrorHandler((error,request: FastifyRequest, reply: FastifyReply) =>{
+	try {
+		const handleException = error as unknown as HandleException;
+		reply.status(handleException.code).send({
+			error: handleException.name,
+			message: handleException.message
+		});
+	}
+	catch (err){
+		reply.status(500).send({
+			error: "Server internal error.",
+			message: err.message
+		});
+	}
+	reply.status(500);
+});
+
 
 fastify.register(fastifySwagger, {
 	openapi: {

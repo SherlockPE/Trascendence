@@ -1,7 +1,8 @@
 import { UserRepositoryPort } from "../../application/ports/UserRepositoryPort";
 import { Chat } from "../../domain/entities/Chat";
 import { Message } from "../../domain/entities/Message";
-import { User } from "../../domain/entities/User";
+import { UpdateUser, User } from "../../domain/entities/User";
+import { HandleException } from "../../domain/exception/HandleException";
 import UserSingleton from "../db/UserSingleton";
 
 
@@ -10,8 +11,15 @@ export class UserRepositoryAdapter implements UserRepositoryPort {
     constructor() {
         this.init();
     }
-    updateUser(userId: string, updatedUser: User): Promise<void> {
-        return this.userSingleton.updateUser(userId, updatedUser);
+    async updateUser(userId: string, updatedUser: UpdateUser): Promise<void> {
+        const user:User= await this.userSingleton.getUserById(userId);
+        if (updatedUser.alias)
+            throw new HandleException("The alias can not be empty.", 400, "Bad Request");
+        user.alias=updatedUser.alias;
+        if (updatedUser.avatar_url)
+            throw new HandleException("The avatar can not be empty.", 400, "Bad Request");
+        user.avatar_url=updatedUser.avatar_url;
+        return this.userSingleton.updateUser(userId, user);
     }
     getUsers(): Promise<User[]> {
         return this.userSingleton.getAllUsers();

@@ -1,4 +1,4 @@
-/*
+
 import { FastifyInstance } from "fastify";
 import { UserRepositoryAdapter } from "../../infrastructure/repositories/UserRepositoryAdapter";
 import { LoadUser } from "../../application/use-cases/LoadUser";
@@ -92,8 +92,8 @@ export async function userRoutes(fastify: FastifyInstance) {
 	fastify.get("/api/v1/users",userController.getUsers.bind(userController))
 	fastify.post("/api/v1/users", userController.postUser.bind(userController));
 	
-}*/
-
+}
+/*
 import { FastifyInstance } from "fastify";
 import { UserRepositoryAdapter } from "../../infrastructure/repositories/UserRepositoryAdapter";
 import { LoadUser } from "../../application/use-cases/LoadUser";
@@ -208,3 +208,4 @@ export async function userRoutes(fastify: FastifyInstance) {
         }
     }, userController.deleteUser.bind(userController));
 }
+*/

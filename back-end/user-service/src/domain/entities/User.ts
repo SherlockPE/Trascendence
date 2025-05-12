@@ -6,14 +6,16 @@ interface Connect {
 export interface User {
     id: string;
     name: string;
+    alias?: string;
+	email?: string;
+    avatar_url?: string;
 	passoword?: string;
     contacts?: Connect[];
 }
 
-export interface UpdateUser {
+export interface UpdateUser  {
     alias?: string;
     avatar_url?: string;
-    is_online?: boolean;
 }
 
 export const userDtoSchema = {

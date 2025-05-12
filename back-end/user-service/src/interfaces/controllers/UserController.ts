@@ -1,4 +1,4 @@
-/*import { FastifyRequest, FastifyReply } from "fastify";
+import { FastifyRequest, FastifyReply } from "fastify";
 import { User } from "../../domain/entities/User";
 import { LoadUser } from "../../application/use-cases/LoadUser";
 import { UpdateUser } from "../../application/use-cases/UpdateUser";
@@ -72,12 +72,11 @@ export class UserController {
     
             const userToSave: User = {
                 id: '', 
-                username: newUser.userName,
+                name: newUser.userName,
                 alias: '', 
                 email: newUser.email,
                 avatar_url: '',
                 contacts: [], 
-                is_online: false, 
             };
     
             const savedUser = await this.saveUser.execute(userToSave);
@@ -111,7 +110,7 @@ export class UserController {
     }
 }
 
-*/
+/*
 
 import { FastifyRequest, FastifyReply } from "fastify";
 import { User, NewUser, UpdateUser } from "../../domain/entities/User";
@@ -207,3 +206,4 @@ export class UserController {
         }
     }
 }
+*/
