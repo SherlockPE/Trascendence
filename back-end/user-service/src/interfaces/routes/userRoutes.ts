@@ -178,10 +178,17 @@ export async function userRoutes(fastify: FastifyInstance) {
             },
             response: {
                 204: { type: 'null' },
+                404: {
+                    type: 'object',
+                    properties: {
+                        error: { type: 'string' }
+                    }
+                }
             },
-            summary: 'Delete user',
+            summary: 'Delete user by ID',
             tags: ['user'],
         }
     }, userController.deleteUser.bind(userController));
+
 }
 */
