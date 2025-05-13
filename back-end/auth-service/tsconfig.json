@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
 	"compilerOptions": {
 	  "rootDir": ".",
 	  "baseUrl": ".", 
@@ -9,5 +10,17 @@
 	},
 	"include": ["src", "src/types", "test"]
 
+=======
+  "compilerOptions": {
+    "baseUrl": "./src", 
+    "paths": {
+      "@user-service/*": ["../user-service/src/*"]
+    },
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "types": ["node", "@fastify/websocket"],
+    "moduleResolution": "node",
+    "esModuleInterop": true
+>>>>>>> b70b7df (delete user implemented)
   }
-  
+}

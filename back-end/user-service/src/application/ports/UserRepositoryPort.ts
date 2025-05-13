@@ -11,4 +11,5 @@ export interface  UserRepositoryPort {
     existUsers(usersID: string[]);
     saveUser(chat: User): Promise<void>;
     updateUser(userId: string, updatedUser: UpdateUser): Promise<void>;
+    deleteUser(userId: string): Promise<void>; 
 }

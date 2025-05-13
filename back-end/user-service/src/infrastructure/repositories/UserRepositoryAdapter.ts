@@ -54,5 +54,9 @@ export class UserRepositoryAdapter implements UserRepositoryPort {
         }
         return user;
     }
+    async deleteUser(userId: string): Promise<void> {
+        await this.userSingleton.deleteUser(userId);
+}
+
 
 }

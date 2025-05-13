@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { FastifyRequest, FastifyReply } from "fastify";
 import { User } from "../../domain/entities/User";
 import { LoadUser } from "../../application/use-cases/LoadUser";
@@ -111,6 +112,8 @@ export class UserController {
 }
 
 /*
+=======
+>>>>>>> b70b7df (delete user implemented)
 
 import { FastifyRequest, FastifyReply } from "fastify";
 import { User, NewUser, UpdateUser } from "../../domain/entities/User";
@@ -118,6 +121,8 @@ import { LoadUser } from "../../application/use-cases/LoadUser";
 import { UpdateUser as UpdateUserUseCase } from "../../application/use-cases/UpdateUser";
 import { AddUser } from "../../application/use-cases/AddUser";
 import { LoadUsers } from "../../application/use-cases/LoadUsers";
+import { DeleteUser } from "../../application/use-cases/DeleteUser";
+
 
 interface UserParams {
     userId: string;
@@ -128,12 +133,15 @@ export class UserController {
     private saveUser: AddUser;
     private updateUserUseCase: UpdateUserUseCase;
     private getAllUsers: LoadUsers;
+    private deleteUserUseCase: DeleteUser;
 
-    constructor(getUser: LoadUser, saveUser: AddUser, updateUserUseCase: UpdateUserUseCase, getAllUsers: LoadUsers) {
+    constructor(getUser: LoadUser, saveUser: AddUser, updateUserUseCase: UpdateUserUseCase, getAllUsers: LoadUsers, deleteUserUseCase: DeleteUser) {
         this.getUser = getUser;
         this.saveUser = saveUser;
         this.updateUserUseCase = updateUserUseCase;
         this.getAllUsers = getAllUsers;
+        this.deleteUserUseCase = deleteUserUseCase;
+
     }
 
     // GET /users/:userId
@@ -194,16 +202,20 @@ export class UserController {
         }
     }
 
-    // DELETE /users/:userId (Opcional si quieres añadirlo después)
+    // DELETE /users/:userId 
     async deleteUser(req: FastifyRequest<{ Params: UserParams }>, reply: FastifyReply) {
-        try {
-            const userId = req.params.userId;
-            // Faltaría hacer un caso de uso DeleteUser
-            reply.code(204).send();
-        } catch (error) {
-            console.error(error);
-            reply.status(500).send({ error: "Error deleting user" });
-        }
+    try {
+        const userId = req.params.userId;
+        await this.deleteUserUseCase.execute(userId);
+        reply.code(204).send();
+    } catch (error) {
+        console.error(error);
+        reply.status(500).send({ error: "Error deleting user" });
     }
 }
+<<<<<<< HEAD
 */
+=======
+
+}
+>>>>>>> b70b7df (delete user implemented)
