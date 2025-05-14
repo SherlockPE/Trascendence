@@ -114,3 +114,5 @@ user-managment/index.js
 user-managment/package.json
 user-managment/service.js
 user-managment/swagger_user_management_extended.yaml
+front/public/css/tailwind.css
+back-end/user-service/dist/*

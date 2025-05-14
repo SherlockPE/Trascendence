@@ -61,8 +61,6 @@ services:
     container_name: front-end
     env_file:
       - .env
-    volumes:
-      - front-end:/usr/src/app
     ports:
       - "3040:3040"
     networks:

@@ -1,3 +1,4 @@
+import { Chat } from "../../domain/entities/Chat";
 import { User } from "../../domain/entities/User";
 import { HandleException } from "../../domain/exception/HandleException";
 
@@ -16,7 +17,6 @@ class UserSingleton  {
 				username: "User 1",
 				email: "user1@example.com",
 					passoword: "$2a$12$N4H9M.e1h/bP.xxhvHXYu.hpCqOzcJqQBlH61MvDdW9yHdcTt7OOq",
-
 				contacts: [
 					{ sender_id: "1", receiver_id: "2" },
 					{ sender_id: "1", receiver_id: "3" }
@@ -62,7 +62,7 @@ class UserSingleton  {
 	 async addUser(user: User): Promise<void> {
 		this.users.push(user);
 	}
-	async updateUser(userId: string, updatedUser: User): Promise<void> {
+	 async updateUser(userId: string, updatedUser: User): Promise<void> {
 		const index = this.users.findIndex(user => user.id === userId);
 		if (index === -1) {
 			throw new HandleException(`User with id ${userId} not found`, 400, "Bad Request");
