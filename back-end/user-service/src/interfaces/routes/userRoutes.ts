@@ -77,6 +77,8 @@ import { LoadUsers } from "../../application/use-cases/LoadUsers";
 import { UserController } from "../controllers/UserController";
 import { userDtoSchema } from "../../domain/entities/User";
 import { DeleteUser } from "../../application/use-cases/DeleteUser";
+import { LoadHash } from "../../application/use-cases/LoadHash";
+
 
 
 export async function userRoutes(fastify: FastifyInstance) {
@@ -86,16 +88,40 @@ export async function userRoutes(fastify: FastifyInstance) {
     const updateUser = new UpdateUser(userRepo);
     const getAllUsers = new LoadUsers(userRepo);
     const deleteUser = new DeleteUser(userRepo);
-    const userController = new UserController(getUser, saveUser, updateUser, getAllUsers, deleteUser);
+    const getHashByUserId = new LoadHash(userRepo);
+    const userController = new UserController(getUser, saveUser, updateUser, getAllUsers, getHashByUserId,  deleteUser);
+
+	fastify.get("/api/v1/users/:userId/hash",{
+		schema: {
+		  params: {
+            type: 'object',
+            properties: {
+              userId: { type: 'string' },
+            },
+            required: ['userId'],
+          },
+		  response: {
+			200: {
+				type: 'object',
+				properties: {
+				  passwordHash: { type: 'string' },
+				},
+			  }
+		  },
+		  summary: 'Get password hash by userId',
+		  tags: ['user'],
+		},
+	}, userController.getHashByUserId.bind(userController));
+
 
     // POST /api/v1/users/register
     fastify.post("/api/v1/users/register", {
         schema: {
             body: {
                 type: 'object',
-                required: ['username', 'email', 'password'],
+                required: ['userName', 'email', 'password'],
                 properties: {
-                    username: { type: 'string' },
+                    userName: { type: 'string' },
                     email: { type: 'string' },
                     password: { type: 'string' }
                 }
@@ -191,4 +217,3 @@ export async function userRoutes(fastify: FastifyInstance) {
     }, userController.deleteUser.bind(userController));
 
 }
-*/

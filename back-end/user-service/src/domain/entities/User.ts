@@ -5,7 +5,7 @@ interface Connect {
 
 export interface User {
     id: string;
-    name: string;
+    username: string;
     alias?: string;
 	email?: string;
     avatar_url?: string;
@@ -18,12 +18,17 @@ export interface UpdateUser  {
     avatar_url?: string;
 }
 
+export interface NewUser {
+    userName: string;
+    email: string;
+    password: string;
+}
 export const userDtoSchema = {
 	type: 'object',
-	required: ['id','name'],
+	required: ['id','username'],
 	properties: {
 	  id: { type: 'string' },
-	  name: { type: 'string' },
+	  username: { type: 'string' },
 	  contacts: {
 		type: 'array',
 		items: {

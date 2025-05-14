@@ -115,3 +115,4 @@ front/public/js/data/Chat.js
 front/public/js/data/Message.js
 front/public/js/pages/chat/ChatView.js
 front/public/css/tailwind.css
+back-end/user-service/dist/*
